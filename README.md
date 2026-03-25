@@ -19,7 +19,7 @@ npm run dev
 Optional environment variable:
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://your-domain.com
+NEXT_PUBLIC_SITE_URL=https://elevatedtechsolutionsllc.com
 ```
 
 ## Project Structure
