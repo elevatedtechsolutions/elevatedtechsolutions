@@ -1,0 +1,10 @@
+[build]
+  command = "NEXT_PUBLIC_SITE_URL=${URL:-http://localhost:3000} npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[dev]
+  command = "npm run dev"
+  targetPort = 3000

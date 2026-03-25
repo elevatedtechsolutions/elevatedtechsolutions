@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { createPageMetadata } from "@/lib/metadata";
 import { HomeHeroVisual } from "@/components/home/home-hero-visual";
 import { HomeSignaturePanel } from "@/components/home/home-signature-panel";
@@ -153,87 +155,106 @@ const founderValues = [
 export default function HomePage() {
   return (
     <>
-      <SectionShell
-        className="pb-14 pt-10 sm:pb-20 sm:pt-16"
-        containerSize="wide"
-        containerClassName="grid gap-14 xl:grid-cols-[0.9fr_1.1fr] xl:items-center"
-      >
-        <Reveal className="space-y-8">
-          <div className="inline-flex rounded-full border border-cyan-300/18 bg-cyan-400/8 px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-cyan-100/82">
-            Affordable modern websites for growing organizations
-          </div>
-
-          <div className="space-y-6">
-            <h1 className="max-w-4xl text-balance font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-[4.9rem]">
-              Websites that <span className="text-gradient-accent text-glow">look modern</span>, feel premium, and stay practical to run.
-            </h1>
-            <p className="max-w-3xl text-lg leading-8 text-text-soft/90 sm:text-xl">
-              Elevated Tech Solutions builds affordable modern websites for small
-              businesses, nonprofits, and restaurants that need a stronger digital
-              presence without the cost and complexity of a traditional agency.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink href="/services" size="lg">
-              View Services
-            </ButtonLink>
-            <ButtonLink href="/contact" variant="secondary" size="lg">
-              Get a Quote
-            </ButtonLink>
-          </div>
-
-          <div className="grid gap-5 border-t border-white/8 pt-6 sm:grid-cols-3">
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/72">
-                Built for
-              </p>
-              <p className="text-sm leading-6 text-text-soft/84">
-                Small businesses, nonprofits, and restaurants that need a credible
-                online presence now.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/72">
-                Approach
-              </p>
-              <p className="text-sm leading-6 text-text-soft/84">
-                Standardized where it should be, custom where it matters, and kept
-                lean from start to finish.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/72">
-                Support
-              </p>
-              <p className="text-sm leading-6 text-text-soft/84">
-                Launch quality plus dependable follow-through after the site goes live.
-              </p>
-            </div>
-          </div>
-        </Reveal>
-
-        <Reveal delay={120}>
-          <HomeHeroVisual />
-        </Reveal>
-      </SectionShell>
-
-      <SectionShell className="py-0" containerSize="wide">
-        <div className="grid gap-7 border-y border-white/8 py-9 sm:grid-cols-2 xl:grid-cols-5">
-          {trustStrip.map((item, index) => (
-            <Reveal
-              key={item.label}
-              delay={index * 60}
-              className={index === 0 ? "xl:pr-6" : "xl:border-l xl:border-white/8 xl:pl-6"}
-            >
-              <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/72">
-                {item.label}
-              </p>
-              <p className="mt-3 max-w-[15rem] text-sm leading-6 text-text-soft/82">{item.detail}</p>
-            </Reveal>
-          ))}
+      <div className="relative isolate overflow-hidden">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[56rem] overflow-hidden sm:h-[64rem] lg:h-[72rem]"
+        >
+          <Image
+            src="/images/general/istockphoto-498554434-612x612.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-[center_42%] opacity-[0.24] saturate-[1.08] blur-[1px] scale-[1.08]"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.94),rgba(2,6,23,0.56)_20%,rgba(2,6,23,0.78)_56%,rgba(2,6,23,0.96)_82%,rgba(2,6,23,1)_100%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.16),transparent_34%),radial-gradient(circle_at_18%_32%,rgba(8,145,178,0.12),transparent_24%),radial-gradient(circle_at_82%_24%,rgba(96,165,250,0.12),transparent_26%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-background" />
         </div>
-      </SectionShell>
+
+        <SectionShell
+          className="pb-14 pt-10 sm:pb-20 sm:pt-16"
+          containerSize="wide"
+          containerClassName="grid gap-14 xl:grid-cols-[0.9fr_1.1fr] xl:items-center"
+        >
+          <Reveal className="space-y-8">
+            <div className="inline-flex rounded-full border border-cyan-300/18 bg-cyan-400/8 px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-cyan-100/82 backdrop-blur-sm">
+              Affordable modern websites for growing organizations
+            </div>
+
+            <div className="space-y-6">
+              <h1 className="max-w-4xl text-balance font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-[4.9rem]">
+                Websites that <span className="text-gradient-accent text-glow">look modern</span>, feel premium, and stay practical to run.
+              </h1>
+              <p className="max-w-3xl text-lg leading-8 text-text-soft/90 sm:text-xl">
+                Elevated Tech Solutions builds affordable modern websites for small
+                businesses, nonprofits, and restaurants that need a stronger digital
+                presence without the cost and complexity of a traditional agency.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              <ButtonLink href="/services" size="lg">
+                View Services
+              </ButtonLink>
+              <ButtonLink href="/contact" variant="secondary" size="lg">
+                Get a Quote
+              </ButtonLink>
+            </div>
+
+            <div className="grid gap-5 border-t border-white/8 pt-6 sm:grid-cols-3">
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/72">
+                  Built for
+                </p>
+                <p className="text-sm leading-6 text-text-soft/84">
+                  Small businesses, nonprofits, and restaurants that need a credible
+                  online presence now.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/72">
+                  Approach
+                </p>
+                <p className="text-sm leading-6 text-text-soft/84">
+                  Standardized where it should be, custom where it matters, and kept
+                  lean from start to finish.
+                </p>
+              </div>
+              <div className="space-y-2">
+                <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/72">
+                  Support
+                </p>
+                <p className="text-sm leading-6 text-text-soft/84">
+                  Launch quality plus dependable follow-through after the site goes live.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          <Reveal delay={120}>
+            <HomeHeroVisual />
+          </Reveal>
+        </SectionShell>
+
+        <SectionShell className="py-0" containerSize="wide">
+          <div className="grid gap-7 border-y border-white/8 py-9 sm:grid-cols-2 xl:grid-cols-5">
+            {trustStrip.map((item, index) => (
+              <Reveal
+                key={item.label}
+                delay={index * 60}
+                className={index === 0 ? "xl:pr-6" : "xl:border-l xl:border-white/8 xl:pl-6"}
+              >
+                <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/72">
+                  {item.label}
+                </p>
+                <p className="mt-3 max-w-[15rem] text-sm leading-6 text-text-soft/82">{item.detail}</p>
+              </Reveal>
+            ))}
+          </div>
+        </SectionShell>
+      </div>
 
       <SectionShell
         className="pb-0"
