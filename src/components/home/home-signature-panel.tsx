@@ -47,7 +47,7 @@ export function HomeSignaturePanel() {
 
                 <div className="relative hidden w-20 shrink-0 sm:block">
                   <Image
-                    src="/images/branding/elevated-tech-solutions-mark.png"
+                    src="/images/branding/ets_nobg.png"
                     alt=""
                     width={768}
                     height={768}

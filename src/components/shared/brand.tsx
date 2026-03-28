@@ -19,11 +19,11 @@ export function Brand({ className, compact = false }: BrandProps) {
     >
       <div className="accent-ring relative h-11 w-11 overflow-hidden rounded-[1.1rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] shadow-[0_0_34px_rgba(50,200,255,0.18)] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.1),transparent_55%)] before:opacity-80">
         <Image
-          src="/images/branding/elevated-tech-solutions-mark.png"
+          src="/images/branding/ets_nobg.png"
           alt="Elevated Tech Solutions logo"
           fill
           sizes="(max-width: 640px) 40px, 44px"
-          className="object-contain p-1.5 transition-transform duration-300 group-hover:scale-105"
+          className="object-contain p-0 scale-[1.14] transition-transform duration-300 group-hover:scale-[1.19]"
         />
       </div>
 

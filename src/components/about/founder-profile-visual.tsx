@@ -1,10 +1,11 @@
+import Image from "next/image";
+
 import { CardShell } from "@/components/shared/card-shell";
-import { EditorialImage } from "@/components/shared/editorial-image";
 
 const highlights = [
-  "GVSU Computer Science graduate",
-  "Web development experience at Aztech US",
-  "IT support work at STEM Greenhouse"
+  "B.S. in Computer Science from Grand Valley State University",
+  "Web development internship experience at Aztech in Grand Rapids",
+  "Continuing IT Specialist work at STEM Greenhouse"
 ] as const;
 
 type FounderProfileVisualProps = {
@@ -19,7 +20,7 @@ export function FounderProfileVisual({
   subtitle
 }: FounderProfileVisualProps) {
   return (
-    <div aria-hidden="true" className="relative min-h-[34rem] sm:min-h-[38rem] lg:min-h-[42rem]">
+    <div className="relative min-h-[34rem] sm:min-h-[38rem] lg:min-h-[42rem]">
       <div className="absolute inset-x-10 top-8 h-48 rounded-full bg-cyan-400/12 blur-3xl" />
       <div className="absolute inset-0 rounded-[2.2rem] border border-white/8 bg-[radial-gradient(circle_at_top,rgba(50,200,255,0.1),transparent_42%)]" />
       <div className="absolute inset-6 rounded-[1.8rem] micro-grid opacity-16" />
@@ -47,36 +48,51 @@ export function FounderProfileVisual({
             </h3>
             <p className="max-w-lg text-base leading-8 text-text-soft/86">{subtitle}</p>
             <p className="border-t border-white/8 pt-5 text-sm leading-7 text-text-soft/82">
-              The founder model is intentional. It keeps the work closer to the
-              conversation, makes accountability clearer, and gives clients a more
-              direct, personal experience from discovery through launch.
+              Elevated Tech Solutions is intentionally founder-led so clients get
+              direct communication, clearer accountability, and someone who stays
+              close to the work from the first conversation through launch and
+              follow-up support.
             </p>
           </div>
         </CardShell>
 
-        <EditorialImage
-          image="founderPortrait"
-          motion="drift"
-          className="min-h-[26rem] rounded-[2rem] sm:min-h-[31rem] lg:min-h-[35rem]"
-          imageClassName="object-cover object-center"
-          overlayClassName="bg-[linear-gradient(180deg,rgba(2,6,23,0.04),rgba(2,6,23,0.14)_28%,rgba(2,6,23,0.76)_100%)]"
-        >
-          <div className="flex h-full flex-col justify-between p-6 sm:p-7">
-            <div className="self-start rounded-full border border-white/12 bg-slate-950/40 px-3 py-1 text-[0.65rem] uppercase tracking-[0.24em] text-cyan-100/78 backdrop-blur-sm">
-              Portrait placeholder
+        <div className="group/editorial relative isolate min-h-[26rem] overflow-hidden rounded-[2rem] border border-white/8 bg-slate-950/40 sm:min-h-[31rem] lg:min-h-[35rem]">
+          <Image
+            fill
+            priority
+            src="/images/branding/founder_headshot.jpg"
+            alt="Founder of Elevated Tech Solutions"
+            sizes="(min-width: 1280px) 40vw, (min-width: 768px) 60vw, 100vw"
+            className="object-cover object-[center_18%] transition-transform duration-[1600ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-safe-image-drift"
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.02),rgba(2,6,23,0.12)_26%,rgba(2,6,23,0.78)_100%)]" />
+          <div className="absolute inset-0 flex flex-col justify-between p-6 sm:p-7">
+            <div className="self-start rounded-full border border-white/12 bg-slate-950/44 px-3 py-1 text-[0.65rem] uppercase tracking-[0.24em] text-cyan-100/78 backdrop-blur-sm">
+              Founder
             </div>
 
-            <div className="max-w-sm rounded-[1.4rem] border border-white/12 bg-slate-950/44 px-5 py-5 backdrop-blur-md">
-              <p className="text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100/76">
-                Personal, not corporate
-              </p>
-              <p className="mt-3 text-sm leading-6 text-slate-100/88">
-                Replace this with a real founder portrait later. The layout is meant
-                to give the business a more human and trustworthy face from the start.
-              </p>
+            <div className="grid gap-3 sm:max-w-[22rem]">
+              <div className="rounded-[1.35rem] border border-white/12 bg-slate-950/48 px-5 py-4 backdrop-blur-md">
+                <p className="text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100/76">
+                  Web app focus
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-100/88">
+                  Academic work, internship experience, and personal projects all
+                  reinforced a long-term focus on websites and web applications.
+                </p>
+              </div>
+              <div className="rounded-[1.35rem] border border-white/12 bg-slate-950/42 px-5 py-4 backdrop-blur-md">
+                <p className="text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100/76">
+                  Built for smaller teams
+                </p>
+                <p className="mt-3 text-sm leading-6 text-slate-100/88">
+                  Nonprofit technology work made it clear how much value better
+                  digital tools can create when they stay affordable, practical, and easier to maintain.
+                </p>
+              </div>
             </div>
           </div>
-        </EditorialImage>
+        </div>
       </div>
 
       <div className="relative z-10 mt-6 grid gap-4 border-t border-white/8 pt-5 sm:grid-cols-3">

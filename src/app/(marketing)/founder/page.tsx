@@ -1,5 +1,5 @@
 import { FounderProfileVisual } from "@/components/about/founder-profile-visual";
-import { EditorialImage } from "@/components/shared/editorial-image";
+import { CardShell } from "@/components/shared/card-shell";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { SectionShell } from "@/components/shared/section-shell";
@@ -9,86 +9,86 @@ import { createPageMetadata } from "@/lib/metadata";
 export const metadata = createPageMetadata({
   title: "Founder",
   description:
-    "Meet the founder of Elevated Tech Solutions and learn how a GVSU Computer Science background, web development experience, and IT support work shape the business.",
+    "Meet the founder of Elevated Tech Solutions and learn how a GVSU Computer Science degree, web development experience, and nonprofit technology work shape the business.",
   path: "/founder",
-  keywords: ["meet the founder", "GVSU computer science", "Aztech US web development"]
+  keywords: ["meet the founder", "GVSU computer science", "Aztech web development", "STEM Greenhouse IT specialist"]
 });
 
 const founderStory = [
   {
-    title: "Computer science foundation",
+    title: "Grand Valley State University",
     description:
-      "The founder is a Grand Valley State University Computer Science graduate with a technical background shaped by practical problem solving and real-world implementation."
+      "Elevated Tech Solutions is built on a Bachelor's degree in Computer Science from Grand Valley State University, where the work was heavily focused on web application development and the kind of technical problem solving that translates directly into real client projects."
   },
   {
-    title: "Professional web experience",
+    title: "Aztech internship in Grand Rapids",
     description:
-      "Experience in web development at Aztech US added production perspective around building, maintaining, and delivering digital experiences professionally."
+      "An internship at Aztech in Grand Rapids added hands-on web development experience in a professional environment, reinforcing how modern websites need to balance implementation quality, usability, and the real needs of the people using them."
   },
   {
-    title: "Broader technology support",
+    title: "STEM Greenhouse and ongoing technology work",
     description:
-      "IT work at STEM Greenhouse adds another layer of hands-on experience supporting people, systems, and day-to-day technology needs."
+      "Continuing work as an IT Specialist at STEM Greenhouse deepened an interest in improving technology for real organizations. That nonprofit experience sharpened both the technical side of the work and the motivation to help others access better digital tools."
   }
 ] as const;
 
 const whyItMatters = [
   {
-    title: "Smaller organizations deserve better options",
+    title: "Affordable does not have to feel generic",
     description:
-      "Many businesses and nonprofits need quality websites but are stuck between low-quality quick solutions and agency pricing that feels built for a different market."
+      "Many smaller businesses and nonprofits still need a strong first impression online, but too often their choices are either rushed low-cost work or pricing built for much larger organizations."
   },
   {
-    title: "Solo can be a strength",
+    title: "Founder-led is a practical advantage",
     description:
-      "A founder-led model creates more direct communication, clearer accountability, and a closer connection between the conversation, the build decisions, and the final result."
+      "A solo founder model keeps communication direct, decision-making clearer, and accountability closer to the work itself. Clients are not passed from conversation to conversation just to get simple progress or honest guidance."
   },
   {
-    title: "The mission is practical",
+    title: "The inspiration came from real service work",
     description:
-      "This business was started to help smaller organizations access better digital solutions in a way that feels modern, affordable, and sustainable."
+      "Working in nonprofit technology made it clear how valuable better systems can be, and how many organizations need affordable digital solutions that still feel modern, thoughtful, and credible."
   }
 ] as const;
 
 const strengthGroups = [
   {
-    title: "Technical foundation",
+    title: "Technical background",
     items: [
-      "Frontend and web development execution",
-      "Technical problem solving and implementation",
-      "A structured approach to building and maintaining sites"
+      "Bachelor's-level computer science foundation with a focus on web app development",
+      "Hands-on website and web application work through internship experience and personal projects",
+      "A structured approach to building sites that are clean, maintainable, and practical"
     ]
   },
   {
-    title: "Client-facing strengths",
+    title: "Service mindset",
     items: [
-      "Clear communication with non-technical clients",
-      "Balancing polish with practical scope",
-      "Founder-level ownership from start to finish"
+      "Clear communication with smaller teams and non-technical clients",
+      "Technology recommendations shaped by real-world constraints, not unnecessary upselling",
+      "Founder-level ownership from discovery through launch and ongoing support"
     ]
   }
 ] as const;
 
 const workingStyle = [
   {
-    title: "Direct",
+    title: "Founder-led",
     description:
-      "Clients work with the person shaping the project, not a chain of handoffs."
+      "Clients work directly with the person shaping the strategy, design direction, build decisions, and follow-through."
   },
   {
-    title: "Thoughtful",
+    title: "Human",
     description:
-      "Decisions are made with long-term usability, clarity, and maintainability in mind."
+      "The goal is to make the process approachable, clear, and genuinely helpful instead of overly formal or agency-heavy."
   },
   {
     title: "Practical",
     description:
-      "The goal is not to oversell complexity. It is to build the right solution for the real need."
+      "Projects are scoped around what the business or organization actually needs, not what sounds impressive on paper."
   },
   {
-    title: "Reliable",
+    title: "Committed",
     description:
-      "Communication, follow-through, and support matter just as much as the launch itself."
+      "The work is driven by a real interest in websites, web apps, and helping organizations improve the technology they rely on."
   }
 ] as const;
 
@@ -107,13 +107,14 @@ export default function FounderPage() {
 
           <div className="space-y-6">
             <h1 className="max-w-4xl text-balance font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-[4.35rem]">
-              A founder-led business with technical depth, personal ownership, and a practical service mindset.
+              Web development experience, nonprofit technology work, and a personal commitment to helping smaller organizations show up better online.
             </h1>
             <p className="max-w-3xl text-lg leading-8 text-text-soft/90 sm:text-xl">
-              Elevated Tech Solutions was started to help smaller organizations
-              access better digital solutions without traditional agency pricing, and
-              to do that with a more direct, thoughtful, and accountable way of
-              working.
+              Elevated Tech Solutions grew from a Computer Science background at
+              Grand Valley State University, web development work at Aztech in Grand
+              Rapids, ongoing IT work at STEM Greenhouse, and a long-running passion
+              for building websites and web apps through both professional and
+              personal projects.
             </p>
           </div>
 
@@ -130,8 +131,8 @@ export default function FounderPage() {
         <Reveal delay={120}>
           <FounderProfileVisual
             badge="founder profile"
-            title="Technical background, hands-on experience, and a clear reason for building this business."
-            subtitle="The founder model is presented here as a strength: more ownership, closer communication, and a higher level of care in how projects are scoped, built, and supported."
+            title="A founder story shaped by education, hands-on experience, and a practical reason for building this business."
+            subtitle="The solo founder model is intentional: it keeps the work personal, accountable, and closely connected to the clients and organizations this business was built to serve."
           />
         </Reveal>
       </SectionShell>
@@ -144,14 +145,15 @@ export default function FounderPage() {
         <Reveal>
           <SectionHeading
             eyebrow="Founder Story"
-            title="The business comes from a mix of computer science, web development, and practical technology support."
-            description="That combination matters because it shapes both the technical work and the way client relationships are handled."
+            title="The path to Elevated Tech Solutions started with computer science, web app development, and real technology support work."
+            description="That mix matters because it shapes both the quality of the technical work and the way projects are communicated, scoped, and supported."
           />
 
           <p className="mt-6 max-w-2xl text-base leading-8 text-text-soft/86">
-            The founder background is not just about technical knowledge. It also
-            shapes how projects are explained, how support is approached, and how the
-            business stays grounded in real-world needs instead of abstract process.
+            Along the way, personal projects kept reinforcing the same interest:
+            building websites and web applications that look strong, work clearly,
+            and solve real problems for the people using them. That interest never
+            stayed academic for long. It kept turning into real hands-on work and eventually into a business built to serve others well.
           </p>
         </Reveal>
 
@@ -175,33 +177,44 @@ export default function FounderPage() {
         containerClassName="grid gap-12 xl:grid-cols-[1.02fr_0.98fr] xl:items-center"
       >
         <Reveal>
-          <EditorialImage
-            image="collaboration"
-            motion="drift"
-            className="min-h-[24rem] rounded-[1.9rem] sm:min-h-[28rem] lg:min-h-[32rem]"
-            imageClassName="object-cover object-center"
-            overlayClassName="bg-[linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.2)_28%,rgba(2,6,23,0.78)_100%)]"
-          >
-            <div className="flex h-full flex-col justify-end p-6 sm:p-7">
-              <div className="max-w-md rounded-[1.45rem] border border-white/12 bg-slate-950/44 px-5 py-5 backdrop-blur-md">
-                <p className="text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100/76">
-                  Why this business exists
-                </p>
-                <p className="mt-3 text-sm leading-6 text-slate-100/88">
-                  Smaller organizations should be able to work with someone who cares
-                  about both the quality of the build and the day-to-day reality of
-                  maintaining it.
-                </p>
-              </div>
+          <CardShell tone="hero" className="p-8 sm:p-10 lg:p-12">
+            <p className="text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100/76">
+              Why this business exists
+            </p>
+            <p className="mt-6 max-w-2xl font-display text-3xl font-semibold tracking-tight text-white sm:text-[2.35rem]">
+              Nonprofit technology work turned a passion for websites into a mission
+              to offer affordable digital solutions that still feel premium.
+            </p>
+            <p className="mt-5 max-w-2xl text-base leading-8 text-text-soft/86">
+              Working at STEM Greenhouse strengthened a passion for upgrading
+              technology and made the gap easier to see: many organizations need
+              better websites and better digital tools, but they need them in a way
+              that respects budget, clarity, and long-term usability instead of adding unnecessary complexity.
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              {[
+                "Web app development was the academic and personal through-line.",
+                "Aztech added real-world web development perspective.",
+                "STEM Greenhouse reinforced the value of practical technology upgrades.",
+                "The business was built to help others access that same kind of progress."
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-[1.35rem] border border-white/10 bg-white/[0.03] px-5 py-4 text-sm leading-6 text-text-soft/84"
+                >
+                  {item}
+                </div>
+              ))}
             </div>
-          </EditorialImage>
+          </CardShell>
         </Reveal>
 
         <Reveal delay={120}>
           <SectionHeading
             eyebrow="Why This Business Matters"
-            title="The point is to make better digital solutions more accessible to smaller organizations."
-            description="Elevated Tech Solutions was created because too many smaller teams are forced to choose between underwhelming low-cost options and agency pricing that is built for a different market."
+            title="The point is to make better websites and digital solutions more accessible to smaller organizations."
+            description="Elevated Tech Solutions was created to give businesses, nonprofits, and local organizations an option that feels more personal, more modern, and more realistic for their actual needs."
           />
 
           <div className="mt-10 space-y-6">

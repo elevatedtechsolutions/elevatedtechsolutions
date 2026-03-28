@@ -1,5 +1,5 @@
 import { ContactHeroVisual } from "@/components/contact/contact-hero-visual";
-import { QuoteFormPreview } from "@/components/contact/quote-form-preview";
+import { QuoteForm } from "@/components/contact/quote-form";
 import { CardShell } from "@/components/shared/card-shell";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -18,10 +18,10 @@ export const metadata = createPageMetadata({
 const contactMethods = [
   {
     label: "Email",
-    value: "hello@elevatedtechsolutions.com",
-    href: "mailto:hello@elevatedtechsolutions.com",
+    value: "info@elevatedtechsolutionsllc.com",
+    href: "mailto:info@elevatedtechsolutionsllc.com",
     description:
-      "Use this as the primary contact slot for inquiries and quote requests until the form backend is connected."
+      "Use this email for direct inquiries, project discussions, or quote requests if you prefer to start the conversation by email."
   },
   {
     label: "Service Area",
@@ -43,17 +43,17 @@ const reassuranceCards = [
   {
     title: "You do not need everything figured out yet",
     description:
-      "A first conversation can start with the basics: what kind of website you need, what the business does, and what feels most urgent."
+      "A strong first conversation can start with the basics: what the organization does, what the site needs to accomplish, and what feels most urgent right now."
   },
   {
     title: "Clear scope matters more than overcomplicated intake",
     description:
-      "The quote process is meant to gather useful information, not overwhelm clients with a heavy form experience."
+      "The intake is meant to gather the context that actually helps, not create friction with unnecessary questions or bloated process."
   },
   {
-    title: "The site can still feel premium before the backend is live",
+    title: "The inquiry experience is meant to feel calm and professional",
     description:
-      "This page is designed to feel polished, trustworthy, and usable now, even before final submission wiring is added."
+      "The goal is a first response that feels informed, direct, and easy to act on rather than generic or rushed."
   }
 ] as const;
 
@@ -63,22 +63,22 @@ export default function ContactPage() {
       <SectionShell
         className="pb-12 pt-10 sm:pb-14 sm:pt-16"
         containerSize="wide"
-        containerClassName="grid gap-10 xl:grid-cols-[minmax(0,0.98fr)_1.02fr] xl:items-center"
+        containerClassName="grid gap-12 xl:grid-cols-[minmax(0,0.94fr)_1.06fr] xl:items-start"
       >
-        <Reveal className="space-y-8">
+        <Reveal className="space-y-8 xl:pt-6">
           <div className="inline-flex rounded-full border border-cyan-300/18 bg-cyan-400/8 px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-cyan-100/82">
             Contact / Get a Quote
           </div>
 
           <div className="space-y-6">
             <h1 className="max-w-4xl text-balance font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-[4.35rem]">
-              Start the conversation with a quote experience that already feels polished.
+              Start the project conversation with an intake experience that feels clear, polished, and trustworthy.
             </h1>
             <p className="max-w-3xl text-lg leading-8 text-text-soft/90 sm:text-xl">
               Whether you need a new site, a restaurant website, or ongoing support,
-              this page is designed to make the next step feel clear and trustworthy.
-              The quote form is visually ready now and can be wired up later without
-              changing the experience.
+              this page is designed to make the next step feel straightforward and
+              trustworthy. Share the essentials about your project and Elevated Tech
+              Solutions can respond with a more informed and useful next step.
             </p>
           </div>
 
@@ -92,7 +92,7 @@ export default function ContactPage() {
           </div>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal delay={120} className="xl:pl-4">
           <ContactHeroVisual />
         </Reveal>
       </SectionShell>
@@ -162,31 +162,36 @@ export default function ContactPage() {
         <Reveal>
           <CardShell tone="hero" className="p-8 sm:p-10">
             <p className="text-xs uppercase tracking-[0.32em] text-cyan-200/72">
-              Quote Form UI
+              Project Inquiry
             </p>
             <h2 className="mt-5 text-balance font-display text-4xl font-semibold tracking-tight text-white">
-              A premium intake experience, even before the backend is connected.
+              Share the project details and get the quote conversation moving.
             </h2>
             <p className="mt-5 text-base leading-8 text-text-soft/88">
-              This form is intentionally styled and structured now so the contact
-              experience already feels thoughtful and trustworthy. When backend wiring
-              is added later, the UI is already in place.
+              This form is structured to capture the details that actually help:
+              who you are, what you need, and what budget or timing considerations
+              matter most. That keeps the process focused and makes the first reply more useful.
             </p>
             <div className="mt-8 border-t border-white/8 pt-5">
               <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
-                Placeholder behavior
+                Prefer email instead?
               </p>
               <p className="mt-3 text-sm leading-7 text-text-soft/84">
-                The submission action is intentionally disabled for now. Until the
-                form is connected, use the email contact slot on this page to start
-                the quote conversation.
+                Reach out directly at{" "}
+                <a
+                  href="mailto:info@elevatedtechsolutionsllc.com"
+                  className="font-medium text-white underline decoration-white/30 underline-offset-4 transition-colors hover:text-cyan-200"
+                >
+                  info@elevatedtechsolutionsllc.com
+                </a>{" "}
+                if you would rather introduce the project over email.
               </p>
             </div>
           </CardShell>
         </Reveal>
 
         <Reveal delay={120}>
-          <QuoteFormPreview />
+          <QuoteForm />
         </Reveal>
       </SectionShell>
 
@@ -197,7 +202,7 @@ export default function ContactPage() {
               Ready to talk through the project
             </p>
             <h2 className="mx-auto mt-5 max-w-4xl text-balance font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-              If you need a modern website with a clearer, more professional process, this is the right place to start.
+              If you need a modern website with a clearer, more professional process, this is the right place to begin.
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-text-soft/88 sm:text-lg">
               Elevated Tech Solutions is built to make the first step feel more
