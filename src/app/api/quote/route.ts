@@ -12,6 +12,30 @@ import { parseQuoteRequestSubmission } from "@/lib/quote-request";
 
 export const runtime = "nodejs";
 
+function normalizeInsertedRequestId(value: unknown) {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
+  }
+
+  if (typeof value === "string" && /^\d+$/.test(value)) {
+    return Number(value);
+  }
+
+  return null;
+}
+
+function normalizeInsertedSubmittedAt(value: unknown) {
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString();
+  }
+
+  if (typeof value === "string" && value.trim().length > 0) {
+    return value;
+  }
+
+  return null;
+}
+
 export async function POST(request: Request) {
   let formData: FormData;
 
@@ -72,20 +96,36 @@ export async function POST(request: Request) {
         ${"new"}
       )
       returning id, created_at
-    `) as Array<{ id: number; created_at: string | Date }>;
+    `) as Array<{ id: string | number; created_at: string | Date }>;
 
-    const requestId = insertedRows[0]?.id;
-    const submittedAt = insertedRows[0]?.created_at;
+    const insertedRow = insertedRows[0];
+    const requestId = normalizeInsertedRequestId(insertedRow?.id);
+    const submittedAt = normalizeInsertedSubmittedAt(insertedRow?.created_at);
 
-    if (typeof requestId !== "number" || !submittedAt) {
-      throw new Error("Quote request insert did not return the expected metadata.");
+    if (!insertedRow) {
+      throw new Error("Quote request insert completed but did not return a row.");
+    }
+
+    if (requestId === null || submittedAt === null) {
+      console.error("Quote request insert returned unrecognized metadata", {
+        route: "/api/quote",
+        table: QUOTE_REQUESTS_TABLE,
+        insertedRow
+      });
+
+      return NextResponse.json(
+        {
+          message:
+            "Your quote request was received successfully. Elevated Tech Solutions has your inquiry on file and will follow up by email within 1-2 business days."
+        },
+        { status: 201 }
+      );
     }
 
     const emailResult = await sendQuoteRequestEmails({
       ...parsed.data,
       requestId,
-      submittedAt:
-        submittedAt instanceof Date ? submittedAt.toISOString() : String(submittedAt)
+      submittedAt
     });
 
     if (!emailResult.allSucceeded) {
