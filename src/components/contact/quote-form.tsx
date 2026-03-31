@@ -91,7 +91,7 @@ export function QuoteForm() {
   return (
     <CardShell className="p-6 sm:p-8">
       <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/35 to-transparent" />
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex flex-wrap items-start justify-between gap-4 border-b border-white/8 pb-6">
         <div>
           <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
             Quote Request Form
@@ -99,28 +99,15 @@ export function QuoteForm() {
           <h2 id="quote-form-heading" className="mt-3 font-display text-3xl font-semibold text-white">
             Tell us about the project.
           </h2>
+          <p id="quote-form-description" className="mt-4 max-w-2xl text-sm leading-7 text-text-soft/82">
+            Share the goals, scope, and practical details below. The form is designed to
+            gather the information needed for a clear first response and a more useful
+            quote conversation.
+          </p>
         </div>
-        <span className="rounded-full border border-cyan-300/18 bg-cyan-400/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.24em] text-cyan-100/80">
+        <span className="rounded-full border border-cyan-300/18 bg-cyan-400/10 px-3 py-1 text-[0.65rem] uppercase tracking-[0.24em] text-cyan-100/80 sm:self-start">
           Response in 1-2 business days
         </span>
-      </div>
-
-      <p id="quote-form-description" className="mt-5 max-w-3xl text-sm leading-7 text-text-soft/82">
-        Share the goals, scope, and practical details below. The form is designed to
-        gather the information needed for a clear first response and a more useful
-        quote conversation.
-      </p>
-
-      <div className="mt-6 flex flex-wrap gap-3">
-        <div className="rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 text-[0.7rem] uppercase tracking-[0.24em] text-text-soft/72">
-          Clear scope
-        </div>
-        <div className="rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 text-[0.7rem] uppercase tracking-[0.24em] text-text-soft/72">
-          Practical budget context
-        </div>
-        <div className="rounded-full border border-white/8 bg-white/[0.03] px-4 py-2 text-[0.7rem] uppercase tracking-[0.24em] text-text-soft/72">
-          Direct founder follow-up
-        </div>
       </div>
 
       <form
@@ -129,7 +116,7 @@ export function QuoteForm() {
         method="post"
         aria-labelledby="quote-form-heading"
         aria-describedby="quote-form-description quote-form-note"
-        className="mt-8 grid gap-6"
+        className="mt-6 grid gap-6"
         onSubmit={handleSubmit}
       >
         <div className="grid gap-5 rounded-[1.55rem] border border-white/8 bg-white/[0.02] p-5 sm:p-6">
@@ -227,6 +214,7 @@ export function QuoteForm() {
               options={projectTypeOptions}
               value={projectType}
               onChange={setProjectType}
+              showSelectedDescription
               required
               disabled={isSubmitting}
             />

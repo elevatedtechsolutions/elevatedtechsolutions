@@ -8,6 +8,9 @@ import { cn } from "@/lib/utils";
 export type CustomSelectOption = {
   value: string;
   label: string;
+  selectedLabel?: string;
+  description?: string;
+  selectedDescription?: string;
 };
 
 type CustomSelectProps = {
@@ -20,6 +23,7 @@ type CustomSelectProps = {
   onChange: (value: string) => void;
   required?: boolean;
   disabled?: boolean;
+  showSelectedDescription?: boolean;
 };
 
 export function CustomSelect({
@@ -31,7 +35,8 @@ export function CustomSelect({
   value,
   onChange,
   required = false,
-  disabled = false
+  disabled = false,
+  showSelectedDescription = false
 }: CustomSelectProps) {
   const generatedId = useId();
   const labelId = `${id}-${generatedId}-label`;
@@ -173,6 +178,9 @@ export function CustomSelect({
     }
   };
 
+  const shouldShowSelectedDescription =
+    showSelectedDescription && Boolean(selectedOption?.selectedDescription);
+
   return (
     <div ref={rootRef} className="relative">
       <label id={labelId} htmlFor={buttonId} className="premium-label">
@@ -197,7 +205,10 @@ export function CustomSelect({
         }
         aria-required={required}
         className={cn(
-          "group/select premium-input flex min-h-[3.25rem] w-full items-center justify-between gap-4 pr-4 text-left",
+          "group/select premium-input flex w-full justify-between gap-4 pr-4 text-left",
+          shouldShowSelectedDescription
+            ? "min-h-[4.75rem] items-start py-3.5"
+            : "min-h-[3.25rem] items-center",
           !selectedOption && "text-slate-500",
           disabled && "cursor-not-allowed opacity-60",
           isOpen &&
@@ -210,21 +221,27 @@ export function CustomSelect({
         }}
         onKeyDown={handleButtonKeyDown}
       >
-        <span className="min-w-0">
+        <span className="min-w-0 flex-1">
           <span
             className={cn(
-              "block truncate text-sm",
+              "block text-sm leading-5",
               selectedOption ? "text-white" : "text-slate-500"
             )}
           >
-            {selectedOption?.label ?? placeholder}
+            {selectedOption?.selectedLabel ?? selectedOption?.label ?? placeholder}
           </span>
+          {shouldShowSelectedDescription ? (
+            <span className="mt-1 block text-xs leading-5 text-cyan-100/68">
+              {selectedOption?.selectedDescription}
+            </span>
+          ) : null}
         </span>
 
         <span
           aria-hidden="true"
           className={cn(
             "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] text-cyan-100/82 transition-all duration-300",
+            shouldShowSelectedDescription && "mt-0.5",
             isOpen && "border-cyan-300/20 bg-cyan-400/10 text-cyan-50"
           )}
         >
@@ -272,7 +289,7 @@ export function CustomSelect({
                     role="option"
                     aria-selected={isSelected}
                     className={cn(
-                      "flex w-full items-center justify-between gap-4 rounded-[1.05rem] border px-3.5 py-3 text-left text-sm transition-all duration-200",
+                      "flex w-full items-start justify-between gap-4 rounded-[1.05rem] border px-3.5 py-3 text-left text-sm transition-all duration-200",
                       isSelected
                         ? "border-cyan-300/22 bg-[linear-gradient(180deg,rgba(34,211,238,0.14),rgba(34,211,238,0.08))] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
                         : "border-transparent bg-transparent text-text-soft/84 hover:border-white/8 hover:bg-white/[0.045] hover:text-white",
@@ -281,11 +298,25 @@ export function CustomSelect({
                     onClick={() => selectOption(option.value)}
                     onMouseEnter={() => setActiveIndex(index)}
                   >
-                    <span className="min-w-0 flex-1 truncate">{option.label}</span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-sm leading-5 text-current">
+                        {option.label}
+                      </span>
+                      {option.description ? (
+                        <span
+                          className={cn(
+                            "mt-1 block text-xs leading-5",
+                            isSelected ? "text-cyan-50/78" : "text-text-soft/64"
+                          )}
+                        >
+                          {option.description}
+                        </span>
+                      ) : null}
+                    </span>
                     <span
                       aria-hidden="true"
                       className={cn(
-                        "h-2.5 w-2.5 rounded-full border border-white/15 bg-transparent transition-all duration-200",
+                        "mt-1 h-2.5 w-2.5 shrink-0 rounded-full border border-white/15 bg-transparent transition-all duration-200",
                         isSelected && "border-cyan-200/50 bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.5)]"
                       )}
                     />

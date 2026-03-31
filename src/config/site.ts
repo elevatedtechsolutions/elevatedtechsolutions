@@ -3,18 +3,17 @@ const fallbackUrl = "http://localhost:3000";
 const primaryNavigation = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
-  { href: "/work", label: "Work" },
-  { href: "/about", label: "About" },
-  { href: "/founder", label: "Founder" },
   { href: "/process", label: "Process" },
+  { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" }
 ] as const;
 
 const footerNavigation = [
   { href: "/services", label: "Services" },
-  { href: "/work", label: "Work" },
+  { href: "/process", label: "Process" },
   { href: "/about", label: "About" },
+  { href: "/founder", label: "Founder" },
   { href: "/contact", label: "Contact" },
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms-of-service", label: "Terms of Service" },
@@ -39,7 +38,7 @@ export const siteConfig = {
   legalNavigation,
   cta: {
     href: "/contact",
-    label: "Start a Project"
+    label: "Get a Quote"
   },
   keywords: [
     "web design agency",

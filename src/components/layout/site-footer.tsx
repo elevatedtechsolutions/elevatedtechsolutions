@@ -35,7 +35,7 @@ export function SiteFooter() {
             <div className="flex flex-wrap gap-3 lg:justify-end">
               <ButtonLink href="/contact">{siteConfig.cta.label}</ButtonLink>
               <ButtonLink href="/services" variant="secondary">
-                View Services
+                Explore Services
               </ButtonLink>
             </div>
           </div>

@@ -8,12 +8,17 @@ const coreOffers = [
   },
   {
     title: "Restaurant Sites",
-    detail: "Mobile-first presentation for menus, hours, location, and customer actions."
+    detail: "Focused presentation for menus, hours, location, and customer actions."
   },
   {
-    title: "Ongoing Support",
-    detail: "Updates, light edits, guidance, and oversight after launch."
+    title: "Nonprofit Sites",
+    detail: "Mission-led presentation for programs, trust, donations, and supporter actions."
   }
+] as const;
+
+const supportNotes = [
+  "Structured to feel current, clear, and trustworthy.",
+  "Designed to look premium without becoming harder to maintain."
 ] as const;
 
 export function ServicesHeroVisual() {
@@ -25,25 +30,45 @@ export function ServicesHeroVisual() {
       <div className="absolute inset-x-16 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/42 to-transparent" />
 
       <EditorialImage
-        image="collaboration"
+        image="generalCollaboration"
         motion="drift"
         priority
         className="absolute inset-x-6 bottom-0 top-16 rounded-[2rem] lg:left-20 lg:right-0 lg:top-10"
         imageClassName="object-cover object-center"
         overlayClassName="bg-[linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.22)_34%,rgba(2,6,23,0.72)_100%)]"
+      />
+
+      <CardShell
+        tone="quiet"
+        className="absolute inset-x-8 bottom-6 z-20 p-5 shadow-[0_28px_90px_rgba(2,12,27,0.34)] sm:inset-x-auto sm:right-6 sm:w-[22rem] sm:p-6 lg:bottom-7 lg:right-8"
       >
-        <div className="flex h-full items-end justify-end p-5 sm:p-6">
-          <div className="max-w-[15rem] rounded-[1.4rem] border border-white/12 bg-slate-950/46 px-4 py-4 backdrop-blur-md">
-            <p className="text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100/76">
-              Built for lean launches
-            </p>
-            <p className="mt-3 text-sm leading-6 text-slate-100/88">
-              Start with a stronger website foundation, then expand only when the
-              business truly needs more.
-            </p>
-          </div>
+        <div className="flex items-center justify-between gap-4 text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100/72">
+          <span>Editorial direction</span>
+          <span>Elevated Tech Solutions</span>
         </div>
-      </EditorialImage>
+
+        <div className="mt-5 self-start rounded-full border border-white/12 bg-slate-950/40 px-3 py-1 text-[0.65rem] uppercase tracking-[0.24em] text-cyan-100/78 backdrop-blur-sm">
+          Placeholder stock image
+        </div>
+
+        <div className="mt-5 space-y-3">
+          <p className="text-xs uppercase tracking-[0.24em] text-cyan-100/78">
+            Modern small-business support
+          </p>
+          <p className="text-sm leading-7 text-slate-100/88">
+            A more collaborative, polished web experience for businesses and
+            organizations that need stronger digital presentation.
+          </p>
+        </div>
+
+        <div className="mt-5 grid gap-3 border-t border-white/8 pt-4">
+          {supportNotes.map((note) => (
+            <p key={note} className="text-sm leading-6 text-text-soft/84">
+              {note}
+            </p>
+          ))}
+        </div>
+      </CardShell>
 
       <CardShell
         tone="hero"

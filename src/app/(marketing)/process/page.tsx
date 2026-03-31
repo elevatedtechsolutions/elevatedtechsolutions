@@ -18,31 +18,31 @@ export const metadata = createPageMetadata({
 
 const processSteps = [
   {
-    step: "01",
+    step: "1",
     title: "Discovery",
     description:
       "Start with the business goals, the audience, and the pages that actually matter. This is where the project gets pointed in the right direction before design or development begins."
   },
   {
-    step: "02",
+    step: "2",
     title: "Scope & Quote",
     description:
       "After the goals are clearer, the next step is a defined project scope and a quote based on the actual need. That keeps the work organized and helps avoid vague expectations later."
   },
   {
-    step: "03",
+    step: "3",
     title: "Build & Review",
     description:
       "Once the scope is approved, the site is designed and built with modern structure, responsive behavior, and clear user flow. Review happens as the work takes shape, not as an afterthought."
   },
   {
-    step: "04",
+    step: "4",
     title: "Launch",
     description:
       "The site is prepared for deployment, checked for launch readiness, and pushed live with the key details in place so the business can start using it confidently."
   },
   {
-    step: "05",
+    step: "5",
     title: "Ongoing Support",
     description:
       "After launch, support can continue through updates, light edits, guidance, and maintenance so the site stays current and useful."
@@ -170,13 +170,19 @@ export default function ProcessPage() {
         </Reveal>
 
         <Reveal delay={120}>
-          <ol className="relative list-none p-0 before:absolute before:bottom-3 before:left-[0.8125rem] before:top-3 before:w-px before:bg-gradient-to-b before:from-cyan-300/50 before:via-white/12 before:to-transparent before:content-['']">
-            {processSteps.map((item) => (
-              <li key={item.step} className="relative list-none pl-12 pb-10 last:pb-0">
-                <div className="absolute left-0 top-1 flex h-7 w-7 items-center justify-center rounded-full border border-cyan-300/20 bg-cyan-400/10 text-[0.62rem] font-semibold tracking-[0.18em] text-cyan-100">
+          <ol className="relative list-none p-0">
+            {processSteps.map((item, index) => (
+              <li key={item.step} className="relative list-none pl-14 pb-10 last:pb-0">
+                {index !== processSteps.length - 1 ? (
+                  <div
+                    aria-hidden="true"
+                    className="absolute left-[0.9375rem] top-[2.4rem] bottom-0 w-px bg-gradient-to-b from-cyan-300/40 via-white/12 to-transparent"
+                  />
+                ) : null}
+                <div className="absolute left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/22 bg-[linear-gradient(180deg,rgba(34,211,238,0.14),rgba(34,211,238,0.08))] text-sm font-semibold text-cyan-100 shadow-[0_0_0_6px_rgb(var(--background))]">
                   {item.step}
                 </div>
-                <article className="border-t border-white/8 pt-5">
+                <article className="border-t border-white/8 pt-4">
                   <div className="grid gap-4 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
                     <h3 className="font-display text-2xl font-semibold text-white sm:text-[2rem]">
                       {item.title}

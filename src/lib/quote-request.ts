@@ -1,17 +1,57 @@
 export type QuoteRequestOption = {
   value: string;
   label: string;
+  selectedLabel?: string;
+  description?: string;
+  selectedDescription?: string;
 };
 
 export const projectTypeOptions: QuoteRequestOption[] = [
-  { value: "info-site", label: "Info Site" },
-  { value: "restaurant-menu-info", label: "Restaurant Site (Menu / Info)" },
-  { value: "restaurant-online-ordering", label: "Restaurant Site (Online Ordering)" },
-  { value: "ecommerce-site", label: "Ecommerce Site" },
-  { value: "website-redesign", label: "Website Redesign" },
-  { value: "website-maintenance-support", label: "Website Maintenance / Support" },
-  { value: "landing-promo-page", label: "Landing Page / Promo Page" },
-  { value: "nonprofit-organization-site", label: "Nonprofit / Organization Site" },
+  {
+    value: "info-site",
+    label: "Informational Website",
+    selectedLabel: "Informational Website"
+  },
+  {
+    value: "restaurant-menu-info",
+    label: "Restaurant Website: Menu and Business Information",
+    selectedLabel: "Restaurant Website: Menu and Info",
+    selectedDescription: "Menus, hours, location, and core business details",
+    description: "For menus, hours, location, contact details, and general restaurant presentation."
+  },
+  {
+    value: "restaurant-online-ordering",
+    label: "Restaurant Website: Online Ordering",
+    selectedLabel: "Restaurant Website: Ordering",
+    selectedDescription: "Online ordering or ordering-platform integration",
+    description: "For restaurant sites that need online ordering or ordering-platform integration."
+  },
+  {
+    value: "ecommerce-site",
+    label: "Ecommerce Website",
+    selectedLabel: "Ecommerce Website"
+  },
+  {
+    value: "website-redesign",
+    label: "Website Redesign",
+    selectedLabel: "Website Redesign"
+  },
+  {
+    value: "website-maintenance-support",
+    label: "Website Maintenance and Support",
+    selectedLabel: "Maintenance and Support",
+    selectedDescription: "Updates, fixes, and ongoing website help"
+  },
+  {
+    value: "landing-promo-page",
+    label: "Landing Page or Promotional Page",
+    selectedLabel: "Landing or Promo Page"
+  },
+  {
+    value: "nonprofit-organization-site",
+    label: "Nonprofit or Organization Website",
+    selectedLabel: "Nonprofit or Organization Site"
+  },
   { value: "other", label: "Other" }
 ];
 

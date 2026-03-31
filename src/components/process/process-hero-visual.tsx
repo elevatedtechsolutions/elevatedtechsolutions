@@ -58,8 +58,8 @@ export function ProcessHeroVisual() {
         <div className="mt-6 space-y-4">
           {processLabels.map((step, index) => (
             <div key={step} className="grid gap-3 border-t border-white/8 pt-4 sm:grid-cols-[auto_1fr] sm:items-start">
-              <div className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/18 bg-cyan-400/10 text-[0.62rem] font-semibold tracking-[0.18em] text-cyan-100">
-                0{index + 1}
+              <div className="flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/18 bg-cyan-400/10 text-sm font-semibold text-cyan-100">
+                {index + 1}
               </div>
               <p className="pt-1 text-sm leading-6 text-text-soft/82">{step}</p>
             </div>

@@ -3,7 +3,6 @@ import Image from "next/image";
 import { createPageMetadata } from "@/lib/metadata";
 import { HomeHeroVisual } from "@/components/home/home-hero-visual";
 import { HomeSignaturePanel } from "@/components/home/home-signature-panel";
-import { LuckyCapsPreview } from "@/components/home/lucky-caps-preview";
 import { CardShell } from "@/components/shared/card-shell";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
@@ -13,7 +12,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 export const metadata = createPageMetadata({
   title: "Elevated Tech Solutions",
   description:
-    "Affordable modern websites for small businesses, nonprofits, and restaurants with premium design, mobile-first structure, and practical long-term support.",
+    "Affordable modern websites for small businesses, nonprofits, and restaurants with premium design, responsive structure across devices, and practical long-term support.",
   path: "/",
   keywords: [
     "affordable websites for small businesses",
@@ -32,8 +31,8 @@ const trustStrip = [
     detail: "Clean layouts, strong typography, and clear messaging."
   },
   {
-    label: "Mobile-first",
-    detail: "Built to feel sharp and easy to use on every screen."
+    label: "Responsive",
+    detail: "Built to feel strong across desktop, tablet, and mobile."
   },
   {
     label: "Low-maintenance hosting",
@@ -57,9 +56,9 @@ const pillars = [
       "Focused restaurant sites with menus, hours, maps, and strong actions to call, order, reserve, or visit without making the experience feel cluttered."
   },
   {
-    title: "Ongoing Support",
+    title: "Nonprofit Websites",
     description:
-      "Post-launch help for updates, hosting guidance, small content changes, and practical improvements so the site keeps working for the business."
+      "Mission-led websites for nonprofits and community organizations that need trust, structure, and clearer support paths."
   }
 ] as const;
 
@@ -67,31 +66,40 @@ const featuredServices = [
   {
     title: "Info Sites",
     summary:
-      "For service businesses, nonprofits, and organizations that need a clean, trustworthy web presence.",
+      "Clean brochure-style websites for organizations that need clarity, credibility, and a stronger first impression.",
+    support:
+      "Supported by real example views that show how service pages, hierarchy, and inquiry paths can come together cleanly.",
+    image: "/images/services/Infosite%20Example/infohomepage.png",
+    imageAlt: "Sample informational website example view.",
     bullets: [
       "Home, about, services, and contact structure",
-      "Clear calls to action and mobile-first layouts",
       "A modern look that feels established from day one"
     ]
   },
   {
     title: "Restaurant Sites",
     summary:
-      "For restaurants, cafes, and food concepts that need their menu, hours, location, and atmosphere presented clearly.",
+      "Focused restaurant websites that present the menu, hours, location, and next action without clutter.",
+    support:
+      "Example views help show the right balance of atmosphere, usability, and customer action before the project even starts.",
+    image: "/images/services/Restaurant%20Example/restauranthomepage.png",
+    imageAlt: "Sample restaurant website example view.",
     bullets: [
       "Menu, hours, location, and reservation/contact actions",
-      "Built to look good fast on mobile devices",
       "Designed to support real-world customer decisions"
     ]
   },
   {
-    title: "Website Maintenance",
+    title: "Nonprofit Sites",
     summary:
-      "For owners who want the site to stay current without handling every edit or update themselves.",
+      "Mission-led websites for nonprofits and community organizations that need trust, structure, and clearer support paths.",
+    support:
+      "Real example pages keep the focus on service fit while showing how mission, programs, and giving paths can be presented.",
+    image: "/images/services/Nonprofit%20Example/nonprofithomepage.png",
+    imageAlt: "Sample nonprofit website example view.",
     bullets: [
-      "Practical content updates and site upkeep",
-      "Dependable support after launch",
-      "Clear boundaries so support stays useful and sustainable"
+      "Mission, program, donation, and contact structure",
+      "Built to feel warm, clear, and trustworthy"
     ]
   }
 ] as const;
@@ -136,7 +144,7 @@ const processSteps = [
     step: "03",
     title: "Launch",
     description:
-      "Go live with a cleaner digital presence that is ready for customers on desktop and mobile."
+      "Go live with a cleaner digital presence that is ready across desktop, tablet, and mobile."
   },
   {
     step: "04",
@@ -196,7 +204,7 @@ export default function HomePage() {
 
             <div className="flex flex-wrap gap-3">
               <ButtonLink href="/services" size="lg">
-                View Services
+                Explore Services
               </ButtonLink>
               <ButtonLink href="/contact" variant="secondary" size="lg">
                 Get a Quote
@@ -303,13 +311,13 @@ export default function HomePage() {
       <SectionShell
         className="pb-0"
         containerSize="wide"
-        containerClassName="grid gap-14 xl:grid-cols-[0.72fr_1.28fr] xl:items-start"
+        containerClassName="grid gap-12"
       >
         <Reveal>
           <SectionHeading
             eyebrow="Featured Services"
-            title="Three focused offers. Built to launch well and stay manageable."
-            description="These offers are designed to feel premium in execution while still respecting real-world budgets, practical scope, and the long-term reality of maintaining a website."
+            title="Three core services, each supported by real example views."
+            description="The services stay primary. The supporting example pages are there to show design quality, structure, and fit without turning the site into a separate portfolio system."
           />
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-text-soft/86">
@@ -319,11 +327,24 @@ export default function HomePage() {
           </p>
         </Reveal>
 
-        <div className="space-y-10">
+        <div className="grid gap-8 xl:grid-cols-3">
           {featuredServices.map((service, index) => (
             <Reveal key={service.title} delay={index * 90}>
-              <article className="border-t border-white/8 pt-6">
-                <div className="grid gap-5 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
+              <CardShell tone="quiet" className="h-full p-5 sm:p-6">
+                <div className="overflow-hidden rounded-[1.4rem] border border-white/8 bg-slate-950/40">
+                  <div className="relative min-h-[14rem] sm:min-h-[15rem]">
+                    <Image
+                      fill
+                      src={service.image}
+                      alt={service.imageAlt}
+                      sizes="(min-width: 1280px) 26vw, (min-width: 768px) 42vw, 100vw"
+                      className="object-cover object-top"
+                    />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04),rgba(2,6,23,0.14)_34%,rgba(2,6,23,0.62)_100%)]" />
+                  </div>
+                </div>
+
+                <div className="mt-5 space-y-5">
                   <div>
                     <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
                       Service 0{index + 1}
@@ -331,23 +352,25 @@ export default function HomePage() {
                     <h3 className="mt-4 font-display text-3xl font-semibold text-white">
                       {service.title}
                     </h3>
+                    <p className="text-base leading-8 text-text-soft/86">{service.summary}</p>
                   </div>
 
-                  <div>
-                    <p className="text-base leading-8 text-text-soft/86">{service.summary}</p>
-                    <ul className="mt-5 grid list-none gap-x-8 gap-y-4 p-0 sm:grid-cols-2 xl:grid-cols-3">
-                      {service.bullets.map((bullet) => (
-                        <li
-                          key={bullet}
-                          className="list-none text-sm leading-6 text-slate-200"
-                        >
-                          {bullet}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <p className="border-t border-white/8 pt-4 text-sm leading-7 text-text-soft/82">
+                    {service.support}
+                  </p>
+
+                  <ul className="grid list-none gap-y-3 border-t border-white/8 pt-4 p-0">
+                    {service.bullets.map((bullet) => (
+                      <li
+                        key={bullet}
+                        className="list-none text-sm leading-6 text-slate-200"
+                      >
+                        {bullet}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-              </article>
+              </CardShell>
             </Reveal>
           ))}
         </div>
@@ -390,37 +413,6 @@ export default function HomePage() {
             </Reveal>
           ))}
         </div>
-      </SectionShell>
-
-      <SectionShell
-        className="pb-0"
-        containerSize="wide"
-        containerClassName="grid gap-12 xl:grid-cols-[1.12fr_0.88fr] xl:items-center"
-      >
-        <Reveal>
-          <LuckyCapsPreview />
-        </Reveal>
-
-        <Reveal delay={120}>
-          <SectionHeading
-            eyebrow="Featured Work"
-            title="Lucky Caps is introduced as an early case-study teaser."
-            description="As the portfolio grows, Lucky Caps can serve as a polished showcase of how a smaller brand can look sharper, more intentional, and more trustworthy than a generic off-the-shelf site."
-          />
-
-          <p className="mt-6 max-w-2xl text-base leading-8 text-text-soft/86">
-            The goal is not to overstate the work. It is to present it well:
-            cleaner structure, stronger visual hierarchy, and a more premium online
-            impression than budget website solutions usually deliver.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <ButtonLink href="/work">View Work</ButtonLink>
-            <ButtonLink href="/contact" variant="secondary">
-              Discuss Your Project
-            </ButtonLink>
-          </div>
-        </Reveal>
       </SectionShell>
 
       <SectionShell
@@ -511,7 +503,7 @@ export default function HomePage() {
                 Get a Quote
               </ButtonLink>
               <ButtonLink href="/services" variant="secondary" size="lg">
-                View Services
+                Explore Services
               </ButtonLink>
             </div>
           </CardShell>
