@@ -307,7 +307,7 @@ export function ServiceOfferGallery({
                     </div>
 
                     <div className="flex items-center gap-3">
-                      {slides.length > 1 ? (
+                      {slides.length > 1 && viewerIndex !== null ? (
                         <p className="text-[0.68rem] uppercase tracking-[0.24em] text-slate-400">
                           {String(viewerIndex + 1).padStart(2, "0")} / {formattedCount}
                         </p>
