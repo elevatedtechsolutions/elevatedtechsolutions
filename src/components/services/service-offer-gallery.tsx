@@ -394,7 +394,7 @@ export function ServiceOfferGallery({
                 >
                   <div className="flex items-center justify-end gap-3 border-b border-white/8 px-5 py-3.5 sm:px-6">
                     <div className="flex items-center gap-3">
-                      {slides.length > 1 ? (
+                      {slides.length > 1 && viewerIndex !== null ? (
                         <p className="text-[0.68rem] uppercase tracking-[0.24em] text-slate-400">
                           {formattedViewerIndex} / {formattedCount}
                         </p>
