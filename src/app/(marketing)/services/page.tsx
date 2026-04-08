@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 export const metadata = createPageMetadata({
   title: "Services",
   description:
-    "Explore focused website services from Elevated Tech Solutions, including info sites, restaurant websites, and nonprofit websites.",
+    "Explore website services from Elevated Tech Solutions, including info sites, restaurant sites, and nonprofit sites.",
   path: "/services",
   keywords: ["website services", "info websites", "nonprofit websites"]
 });
@@ -58,7 +58,7 @@ const coreServices = [
       }
     ] as const satisfies readonly ServiceOfferGallerySlide[],
     intro:
-      "Clean brochure-style websites for organizations that need a strong, trustworthy online presence.",
+      "Brochure-style websites for organizations that need to explain what they do and make it easy to reach out.",
     includes: [
       "Core pages for your offer and contact path",
       "Responsive design across devices",
@@ -67,7 +67,7 @@ const coreServices = [
     ],
     bestFor: ["Nonprofits", "Service businesses", "Local organizations"],
     closing:
-      "Best for teams that need clarity, credibility, and a site that is easy to maintain."
+      "Best for teams that need a clear offer, stronger first impression, and an easy contact path."
   },
   {
     title: "Restaurant Sites",
@@ -97,7 +97,7 @@ const coreServices = [
       }
     ] as const satisfies readonly ServiceOfferGallerySlide[],
     intro:
-      "Focused restaurant websites built to help customers find the menu, hours, location, and next action fast.",
+      "Restaurant websites built around the details customers look for first: menu, hours, location, and the next action.",
     includes: [
       "Menu, hours, location, and map details",
       "Strong visual presentation",
@@ -106,7 +106,7 @@ const coreServices = [
     ],
     bestFor: ["Restaurants", "Cafes", "Food trucks"],
     closing:
-      "Best for restaurants that need to look strong and communicate fast."
+      "Best for restaurants where customers mainly need to view, decide, and act."
   },
   {
     title: "Nonprofit Sites",
@@ -147,7 +147,7 @@ const coreServices = [
       }
     ] as const satisfies readonly ServiceOfferGallerySlide[],
     intro:
-      "Focused nonprofit websites for mission-driven teams that need clarity, trust, and a stronger public presence.",
+      "Nonprofit websites for mission-driven teams that need to explain the mission clearly and guide visitors toward involvement or support.",
     includes: [
       "Mission, program, and contact pages",
       "Donation and supporter pathways",
@@ -160,25 +160,25 @@ const coreServices = [
       "Mission-driven teams"
     ],
     closing:
-      "Best for organizations that need storytelling, credibility, and clear next steps without unnecessary complexity."
+      "Best for organizations that need trust, storytelling, and clear next steps."
   }
 ] as const;
 
 const pricingPrinciples = [
   {
-    title: "Defined scope",
+    title: "Clear deliverables",
     description:
-      "Projects are quoted around clear pages, deliverables, and launch needs."
+      "Quotes are built around pages, features, and launch needs."
   },
   {
-    title: "Practical pricing",
+    title: "Right-sized quotes",
     description:
-      "The goal is to keep the work affordable without lowering the standard."
+      "Pricing is tied to the actual scope instead of padded process."
   },
   {
-    title: "Support after launch",
+    title: "Support available",
     description:
-      "Clients can keep support in place after launch when updates and oversight are needed."
+      "Ongoing help is available after launch when updates or oversight are needed."
   }
 ] as const;
 
@@ -208,18 +208,18 @@ export default function ServicesPage() {
           containerSize="wide"
           containerClassName="grid gap-14 xl:grid-cols-[minmax(0,0.98fr)_1.02fr] xl:items-center"
         >
-          <Reveal className="space-y-8">
+          <Reveal className="space-y-8" preset="heading">
             <div className="inline-flex rounded-full border border-cyan-300/18 bg-cyan-400/8 px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-cyan-100/82">
               Services
             </div>
 
             <div className="space-y-6">
               <h1 className="max-w-4xl text-balance font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-[4.4rem]">
-                Clean website services for small organizations.
+                Website services built around clear needs, not bloated scope.
               </h1>
               <p className="max-w-3xl text-lg leading-8 text-text-soft/90 sm:text-xl">
-                Elevated Tech Solutions builds modern websites and practical support
-                for small businesses, nonprofits, and restaurants.
+                Choose the service lane that fits your organization, then scope the
+                site around the pages and actions that matter most.
               </p>
             </div>
 
@@ -234,8 +234,8 @@ export default function ServicesPage() {
 
             <div className="grid gap-5 border-t border-white/8 pt-6 sm:grid-cols-[0.9fr_1.1fr]">
               <p className="max-w-[26rem] text-sm leading-7 text-text-soft/84">
-                The offer stays focused so the process is easier to understand and the
-                final website stays easier to maintain.
+                The offer stays focused so deliverables, examples, and launch
+                expectations are easy to understand.
               </p>
 
               <div className="grid gap-4 sm:grid-cols-2">
@@ -259,35 +259,42 @@ export default function ServicesPage() {
             </div>
           </Reveal>
 
-          <Reveal delay={120}>
+          <Reveal delay={120} preset="panel">
             <ServicesHeroVisual />
           </Reveal>
         </SectionShell>
       </div>
 
       <SectionShell id="core-services" className="scroll-mt-28 pb-0 sm:scroll-mt-32" containerSize="wide">
-        <SectionHeading
-          eyebrow="Core Services"
-          title="Three core services."
-          description="Each one includes a few simple example pages for visual direction."
-        />
+        <Reveal preset="heading">
+          <SectionHeading
+            eyebrow="Core Services"
+            title="Three service lanes, each with example page direction."
+            description="The examples are there to show page structure and content priorities, not to compete with the service itself."
+          />
+        </Reveal>
 
-        <div className="mt-16 space-y-16 sm:space-y-20">
+        <div className="mt-16 space-y-[4.5rem] sm:space-y-[5.5rem]">
           {coreServices.map((service, index) => (
             <article
               key={service.title}
-              className="grid gap-10 border-t border-white/8 pt-8 lg:gap-12 xl:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] xl:items-start xl:pt-10"
+              className="grid gap-12 border-t border-white/8 pt-8 lg:gap-14 xl:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] xl:items-start xl:pt-10"
             >
-              <Reveal className={cn("min-w-0", index % 2 === 1 && "xl:order-2")} delay={index * 90}>
+              <Reveal
+                className={cn("min-w-0", index % 2 === 1 && "xl:order-2")}
+                delay={index * 90}
+                preset="panel"
+              >
                 <ServiceOfferGallery serviceTitle={service.title} slides={service.gallery} />
               </Reveal>
 
               <Reveal
                 className={cn("min-w-0", index % 2 === 1 && "xl:order-1")}
                 delay={index * 90 + 60}
+                preset="service"
               >
-                <div className="space-y-7">
-                  <div className="space-y-4">
+                <div className="space-y-8">
+                  <div className="space-y-5">
                     <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
                       Service 0{index + 1}
                     </p>
@@ -304,7 +311,7 @@ export default function ServicesPage() {
                       <p className="text-xs uppercase tracking-[0.26em] text-slate-400">
                         Includes
                       </p>
-                      <ul className="mt-4 grid list-none gap-x-8 gap-y-3 p-0 sm:grid-cols-2">
+                      <ul className="mt-4 grid list-none gap-x-8 gap-y-3.5 p-0 sm:grid-cols-2">
                         {service.includes.map((item) => (
                           <li
                             key={item}
@@ -343,16 +350,15 @@ export default function ServicesPage() {
         containerSize="wide"
         containerClassName="grid gap-10 xl:grid-cols-[0.78fr_1.22fr] xl:items-start"
       >
-        <Reveal>
+        <Reveal preset="heading">
           <SectionHeading
-            eyebrow="Simple Process"
-            title="Clear scope. Clean delivery. Support when it matters."
-            description="The work is scoped around what the site actually needs, with a straightforward path from quote to launch."
+            eyebrow="Scope And Support"
+            title="Practical scope, realistic pricing, and support after launch."
+            description="The work is scoped around what your site actually needs, with support available when updates or oversight are still needed later."
           />
 
           <p className="mt-6 max-w-2xl text-base leading-8 text-text-soft/86">
-            Clients should know what is included, how the work will move, and what
-            support looks like after launch. You can also review the{" "}
+            If you want more detail on timing and collaboration, you can review the{" "}
             <Link
               href="/process"
               className="text-cyan-200 underline decoration-cyan-300/30 underline-offset-4 transition-colors hover:text-white focus-visible:outline-none focus-visible:text-white"
@@ -370,7 +376,7 @@ export default function ServicesPage() {
           </p>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal delay={120} preset="card">
           <CardShell tone="quiet" className="p-7 sm:p-8">
             <div className="grid gap-6 md:grid-cols-3">
               {pricingPrinciples.map((item, index) => (
@@ -395,24 +401,24 @@ export default function ServicesPage() {
       </SectionShell>
 
       <SectionShell className="pb-24 pt-16 sm:pb-28 sm:pt-20" containerSize="wide">
-        <Reveal>
+        <Reveal preset="cta">
           <CardShell tone="hero" className="px-8 py-10 text-center sm:px-10 sm:py-12">
             <p className="text-xs uppercase tracking-[0.34em] text-cyan-200/72">
-              Next step
+              Request a quote
             </p>
             <h2 className="mx-auto mt-5 max-w-4xl text-balance font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-              If you need a modern website and a practical plan, let&apos;s talk through what fits.
+              If one of these services fits, request a quote and we&apos;ll scope it from there.
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-text-soft/88 sm:text-lg">
-              Elevated Tech Solutions helps smaller organizations move forward with
-              cleaner presentation and dependable support.
+              Share the basics, and the next step can be scoped around your pages,
+              priorities, and launch needs.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <ButtonLink href="/contact" size="lg">
                 Get a Quote
               </ButtonLink>
               <ButtonLink href="/faq" variant="secondary" size="lg">
-                Read FAQs
+                Review FAQs
               </ButtonLink>
             </div>
           </CardShell>

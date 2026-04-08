@@ -12,7 +12,7 @@ import { ButtonLink } from "@/components/ui/button-link";
 export const metadata = createPageMetadata({
   title: "Elevated Tech Solutions",
   description:
-    "Affordable modern websites for small businesses, nonprofits, and restaurants with premium design, responsive structure across devices, and practical long-term support.",
+    "Website design and support for small businesses, nonprofits, and restaurants that need a credible online presence without agency overhead.",
   path: "/",
   keywords: [
     "affordable websites for small businesses",
@@ -21,44 +21,21 @@ export const metadata = createPageMetadata({
   ]
 });
 
-const trustStrip = [
-  {
-    label: "Affordable setup",
-    detail: "Professional presentation without oversized agency pricing."
-  },
-  {
-    label: "Modern design",
-    detail: "Clean layouts, strong typography, and clear messaging."
-  },
-  {
-    label: "Responsive",
-    detail: "Built to feel strong across desktop, tablet, and mobile."
-  },
-  {
-    label: "Low-maintenance hosting",
-    detail: "Practical setup choices that stay manageable after launch."
-  },
-  {
-    label: "Local & remote support",
-    detail: "West Michigan roots with reliable remote collaboration."
-  }
-] as const;
-
 const pillars = [
   {
     title: "Info Websites",
     description:
-      "Polished brochure and service sites for small businesses, nonprofits, and local organizations that need credibility, clarity, and a modern online presence."
+      "Brochure and service sites for organizations that need to explain what they do and make it easy to reach out."
   },
   {
     title: "Restaurant Websites",
     description:
-      "Focused restaurant sites with menus, hours, maps, and strong actions to call, order, reserve, or visit without making the experience feel cluttered."
+      "Restaurant sites centered on the details customers look for first: menu, hours, location, and the next action."
   },
   {
     title: "Nonprofit Websites",
     description:
-      "Mission-led websites for nonprofits and community organizations that need trust, structure, and clearer support paths."
+      "Mission-led sites for nonprofits and community organizations that need trust, structure, and clear support paths."
   }
 ] as const;
 
@@ -66,14 +43,14 @@ const featuredServices = [
   {
     title: "Info Sites",
     summary:
-      "Clean brochure-style websites for organizations that need clarity, credibility, and a stronger first impression.",
+      "Brochure-style websites for organizations that need a clear offer, better first impression, and an easy contact path.",
     support:
-      "Supported by real example views that show how service pages, hierarchy, and inquiry paths can come together cleanly.",
+      "Example views show how the core pages can work together without overcomplicating the site.",
     image: "/images/services/Infosite%20Example/infohomepage.png",
     imageAlt: "Sample informational website example view.",
     bullets: [
       "Home, about, services, and contact structure",
-      "A modern look that feels established from day one"
+      "Built to look established from day one"
     ]
   },
   {
@@ -81,7 +58,7 @@ const featuredServices = [
     summary:
       "Focused restaurant websites that present the menu, hours, location, and next action without clutter.",
     support:
-      "Example views help show the right balance of atmosphere, usability, and customer action before the project even starts.",
+      "Example views show how atmosphere and usability can support the essentials customers need first.",
     image: "/images/services/Restaurant%20Example/restauranthomepage.png",
     imageAlt: "Sample restaurant website example view.",
     bullets: [
@@ -94,7 +71,7 @@ const featuredServices = [
     summary:
       "Mission-led websites for nonprofits and community organizations that need trust, structure, and clearer support paths.",
     support:
-      "Real example pages keep the focus on service fit while showing how mission, programs, and giving paths can be presented.",
+      "Example pages show how mission, programs, and giving paths can stay clear and easy to follow.",
     image: "/images/services/Nonprofit%20Example/nonprofithomepage.png",
     imageAlt: "Sample nonprofit website example view.",
     bullets: [
@@ -106,24 +83,24 @@ const featuredServices = [
 
 const differentiators = [
   {
-    title: "Better than a rushed template job",
+    title: "Sharper than a rushed template build",
     description:
-      "A cheap website can look acceptable for a week and still create long-term trust problems. Elevated Tech Solutions focuses on cleaner structure, stronger messaging, and a more polished presentation."
+      "The goal is to launch a site that reads clearly, feels established, and supports trust."
   },
   {
-    title: "More practical than a bloated agency process",
+    title: "Lean enough to stay efficient",
     description:
-      "Many organizations do not need months of strategy workshops or oversized retainers. They need a site that looks strong, works well, and can actually be maintained."
+      "Most smaller teams need defined scope, solid execution, and a straightforward path to launch."
   },
   {
-    title: "Built for clarity, not confusion",
+    title: "Focused service lanes",
     description:
-      "The work is intentionally focused on low-complexity website services that can be delivered cleanly: info sites, restaurant sites, and support plans."
+      "The offer stays narrow on purpose: info sites, restaurant sites, nonprofit sites, and support after launch."
   },
   {
-    title: "Founder-led quality and communication",
+    title: "Direct communication throughout",
     description:
-      "Clients are not passed through layers of account management. Strategy, design direction, build quality, and support stay close to the source."
+      "Projects stay close to the original conversation instead of being handed through layers of account management."
   }
 ] as const;
 
@@ -138,7 +115,7 @@ const processSteps = [
     step: "02",
     title: "Design & Build",
     description:
-      "Create a site that feels modern, loads clearly, and communicates the offer without unnecessary complexity."
+      "Shape the pages, messaging, and layout around what visitors need to understand and do."
   },
   {
     step: "03",
@@ -150,14 +127,14 @@ const processSteps = [
     step: "04",
     title: "Support",
     description:
-      "Keep the site current with practical updates, maintenance, and thoughtful long-term guidance."
+      "Keep the site current with updates, maintenance, and support after launch."
   }
 ] as const;
 
 const founderValues = [
-  "Lean, founder-led delivery",
-  "Focused on quality and practicality",
-  "Built for long-term client trust"
+  "Founder-led communication",
+  "Lean project delivery",
+  "Reliable follow-through"
 ] as const;
 
 export default function HomePage() {
@@ -182,23 +159,23 @@ export default function HomePage() {
         </div>
 
         <SectionShell
-          className="pb-14 pt-10 sm:pb-20 sm:pt-16"
+          className="pb-16 pt-10 sm:pb-24 sm:pt-16"
           containerSize="wide"
           containerClassName="grid gap-14 xl:grid-cols-[0.9fr_1.1fr] xl:items-center"
         >
-          <Reveal className="space-y-8">
+          <Reveal className="space-y-8" preset="heading">
             <div className="inline-flex rounded-full border border-cyan-300/18 bg-cyan-400/8 px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-cyan-100/82 backdrop-blur-sm">
-              Affordable modern websites for growing organizations
+              Websites for organizations that need to look established online
             </div>
 
             <div className="space-y-6">
               <h1 className="max-w-4xl text-balance font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-[4.9rem]">
-                Websites that <span className="text-gradient-accent text-glow">look modern</span>, feel premium, and stay practical to run.
+                Websites that help smaller organizations look established online.
               </h1>
               <p className="max-w-3xl text-lg leading-8 text-text-soft/90 sm:text-xl">
-                Elevated Tech Solutions builds affordable modern websites for small
-                businesses, nonprofits, and restaurants that need a stronger digital
-                presence without the cost and complexity of a traditional agency.
+                Elevated Tech Solutions builds websites for small businesses,
+                nonprofits, and restaurants that need a stronger first impression, a
+                clearer message, and a straightforward path to launch.
               </p>
             </div>
 
@@ -217,8 +194,8 @@ export default function HomePage() {
                   Built for
                 </p>
                 <p className="text-sm leading-6 text-text-soft/84">
-                  Small businesses, nonprofits, and restaurants that need a credible
-                  online presence now.
+                  Small businesses, nonprofits, and restaurants that need a more
+                  credible online presence.
                 </p>
               </div>
               <div className="space-y-2">
@@ -226,8 +203,8 @@ export default function HomePage() {
                   Approach
                 </p>
                 <p className="text-sm leading-6 text-text-soft/84">
-                  Standardized where it should be, custom where it matters, and kept
-                  lean from start to finish.
+                  Focused scope, direct communication, and custom decisions where
+                  they matter most.
                 </p>
               </div>
               <div className="space-y-2">
@@ -235,32 +212,15 @@ export default function HomePage() {
                   Support
                 </p>
                 <p className="text-sm leading-6 text-text-soft/84">
-                  Launch quality plus dependable follow-through after the site goes live.
+                  Launch support plus dependable follow-through after the site goes live.
                 </p>
               </div>
             </div>
           </Reveal>
 
-          <Reveal delay={120}>
+          <Reveal delay={120} preset="panel">
             <HomeHeroVisual />
           </Reveal>
-        </SectionShell>
-
-        <SectionShell className="py-0" containerSize="wide">
-          <div className="grid gap-7 border-y border-white/8 py-9 sm:grid-cols-2 xl:grid-cols-5">
-            {trustStrip.map((item, index) => (
-              <Reveal
-                key={item.label}
-                delay={index * 60}
-                className={index === 0 ? "xl:pr-6" : "xl:border-l xl:border-white/8 xl:pl-6"}
-              >
-                <p className="text-xs uppercase tracking-[0.24em] text-cyan-200/72">
-                  {item.label}
-                </p>
-                <p className="mt-3 max-w-[15rem] text-sm leading-6 text-text-soft/82">{item.detail}</p>
-              </Reveal>
-            ))}
-          </div>
         </SectionShell>
       </div>
 
@@ -269,11 +229,11 @@ export default function HomePage() {
         containerSize="wide"
         containerClassName="grid gap-12 xl:grid-cols-[0.78fr_1.22fr] xl:items-center"
       >
-        <Reveal>
+        <Reveal preset="heading">
           <SectionHeading
             eyebrow="What We Do"
-            title="Focused website services for organizations that need quality without unnecessary complexity."
-            description="The business is intentionally built around clean, practical offerings that can be delivered well: modern info websites, restaurant websites, and dependable support after launch."
+            title="Focused website services for the organizations we serve best."
+            description="The work stays centered on three service lanes: info sites, restaurant sites, and nonprofit sites, with support available after launch."
           />
 
           <div className="mt-10 space-y-6">
@@ -303,7 +263,7 @@ export default function HomePage() {
           </div>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal delay={120} preset="panel">
           <HomeSignaturePanel />
         </Reveal>
       </SectionShell>
@@ -313,53 +273,52 @@ export default function HomePage() {
         containerSize="wide"
         containerClassName="grid gap-12"
       >
-        <Reveal>
+        <Reveal preset="heading">
           <SectionHeading
             eyebrow="Featured Services"
-            title="Three core services, each supported by real example views."
-            description="The services stay primary. The supporting example pages are there to show design quality, structure, and fit without turning the site into a separate portfolio system."
+            title="Three core services."
+            description="Each includes example views so you can quickly see the kind of site that fits."
           />
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-text-soft/86">
-            Need ecommerce or more advanced functionality later? That can be scoped
-            when it is actually necessary, instead of forcing extra cost and
-            complexity into the first version of the site.
+            The examples support the service categories. They are there to show
+            page direction, not to turn the homepage into a separate portfolio.
           </p>
         </Reveal>
 
         <div className="grid gap-8 xl:grid-cols-3">
           {featuredServices.map((service, index) => (
-            <Reveal key={service.title} delay={index * 90}>
+            <Reveal key={service.title} delay={index * 90} preset="service">
               <CardShell tone="quiet" className="h-full p-5 sm:p-6">
-                <div className="overflow-hidden rounded-[1.4rem] border border-white/8 bg-slate-950/40">
-                  <div className="relative min-h-[14rem] sm:min-h-[15rem]">
+                <div className="overflow-hidden rounded-[1.45rem] border border-white/8 bg-slate-950/50 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]">
+                  <div className="relative min-h-[14.5rem] sm:min-h-[15.5rem]">
                     <Image
                       fill
                       src={service.image}
                       alt={service.imageAlt}
                       sizes="(min-width: 1280px) 26vw, (min-width: 768px) 42vw, 100vw"
-                      className="object-cover object-top"
+                      className="object-cover object-top transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/card:scale-[1.02]"
                     />
-                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.04),rgba(2,6,23,0.14)_34%,rgba(2,6,23,0.62)_100%)]" />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.03),rgba(2,6,23,0.12)_34%,rgba(2,6,23,0.58)_100%)]" />
                   </div>
                 </div>
 
                 <div className="mt-5 space-y-5">
-                  <div>
+                  <div className="space-y-3">
                     <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
                       Service 0{index + 1}
                     </p>
-                    <h3 className="mt-4 font-display text-3xl font-semibold text-white">
+                    <h3 className="font-display text-3xl font-semibold text-white">
                       {service.title}
                     </h3>
                     <p className="text-base leading-8 text-text-soft/86">{service.summary}</p>
                   </div>
 
-                  <p className="border-t border-white/8 pt-4 text-sm leading-7 text-text-soft/82">
+                  <p className="border-t border-white/8 pt-5 text-sm leading-7 text-text-soft/82">
                     {service.support}
                   </p>
 
-                  <ul className="grid list-none gap-y-3 border-t border-white/8 pt-4 p-0">
+                  <ul className="grid list-none gap-y-3 border-t border-white/8 pt-5 p-0">
                     {service.bullets.map((bullet) => (
                       <li
                         key={bullet}
@@ -374,6 +333,14 @@ export default function HomePage() {
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={220} preset="cta">
+          <div className="flex justify-center pt-2 sm:pt-4">
+            <ButtonLink href="/services" size="lg">
+              View Services
+            </ButtonLink>
+          </div>
+        </Reveal>
       </SectionShell>
 
       <SectionShell
@@ -381,27 +348,24 @@ export default function HomePage() {
         containerSize="wide"
         containerClassName="grid gap-12 xl:grid-cols-[0.92fr_1.08fr] xl:items-start"
       >
-        <Reveal>
+        <Reveal preset="cta">
           <CardShell tone="hero" className="p-8 sm:p-10">
             <p className="text-xs uppercase tracking-[0.32em] text-cyan-200/72">
-              Why Choose Elevated Tech Solutions
+              Why Elevated Tech Solutions
             </p>
             <h2 className="mt-5 text-balance font-display text-4xl font-semibold tracking-tight text-white sm:text-[3.2rem]">
-              Not bargain-bin work. Not oversized agency overhead.
+              A better fit for teams that need clarity without excess process.
             </h2>
             <p className="mt-6 text-base leading-8 text-text-soft/88">
-              Many small organizations get stuck choosing between low-quality
-              template work and expensive agency processes that are far beyond what
-              they actually need. Elevated Tech Solutions is built for the middle:
-              polished design, practical scope, and clear support that respects the
-              budget without lowering the standard.
+              The work is built to stay focused, direct, and high-quality from the
+              first conversation through launch.
             </p>
           </CardShell>
         </Reveal>
 
         <div className="grid gap-8 sm:grid-cols-2">
           {differentiators.map((item, index) => (
-            <Reveal key={item.title} delay={index * 80}>
+            <Reveal key={item.title} delay={index * 80} preset="card">
               <article className="border-t border-white/8 pt-5">
                 <h3 className="font-display text-xl font-semibold text-white">
                   {item.title}
@@ -420,17 +384,17 @@ export default function HomePage() {
         containerSize="wide"
         containerClassName="grid gap-14 xl:grid-cols-[0.9fr_1.1fr] xl:items-start"
       >
-        <Reveal>
+        <Reveal preset="heading">
           <SectionHeading
             eyebrow="Process"
-            title="A straightforward process that keeps projects moving without making clients do extra work."
-            description="The workflow is designed to stay clear, efficient, and supportive, especially for owners and teams that do not have time for a complicated web project."
+            title="A straightforward process from first conversation to launch."
+            description="Each step is there to keep decisions clear and the build moving."
           />
 
           <ol className="mt-10 list-none space-y-5 p-0">
             {processSteps.map((item, index) => (
               <li key={item.step} className="list-none border-t border-white/8 pt-5">
-                <Reveal delay={index * 80}>
+                <Reveal delay={index * 80} preset="list">
                   <div className="grid gap-4 sm:grid-cols-[auto_1fr] sm:items-start">
                     <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
                       {item.step}
@@ -450,20 +414,17 @@ export default function HomePage() {
           </ol>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal delay={120} preset="cta">
           <CardShell tone="hero" className="p-8 sm:p-10">
             <p className="text-xs uppercase tracking-[0.32em] text-cyan-200/72">
               Founder
             </p>
             <h2 className="mt-5 text-balance font-display text-4xl font-semibold tracking-tight text-white">
-              Founder-led, intentionally lean, and built around practical client value.
+              Founder-led work with direct accountability.
             </h2>
             <p className="mt-5 text-base leading-8 text-text-soft/88">
-              Elevated Tech Solutions was shaped around a simple idea: smaller
-              organizations should be able to get a modern, trustworthy website
-              without paying for layers of process they do not need. The mission is
-              to provide clearer digital presentation, dependable service, and
-              long-term support that feels realistic for real businesses.
+              Projects stay close to the original conversation, so decisions,
+              quality, and follow-through stay aligned from the start.
             </p>
 
             <div className="mt-8 grid gap-4 border-t border-white/8 pt-5">
@@ -476,8 +437,8 @@ export default function HomePage() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <ButtonLink href="/founder">Meet the Founder</ButtonLink>
-              <ButtonLink href="/about" variant="secondary">
-                Learn More
+              <ButtonLink href="/process" variant="secondary">
+                View Process
               </ButtonLink>
             </div>
           </CardShell>
@@ -485,25 +446,24 @@ export default function HomePage() {
       </SectionShell>
 
       <SectionShell className="pb-24 sm:pb-28" containerSize="wide">
-        <Reveal>
+        <Reveal preset="cta">
           <CardShell tone="hero" className="px-8 py-10 text-center sm:px-10 sm:py-12">
             <p className="text-xs uppercase tracking-[0.34em] text-cyan-200/72">
               Ready to get started
             </p>
             <h2 className="mx-auto mt-5 max-w-4xl text-balance font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-              If your organization needs a website that looks current and stays easy to manage, let&apos;s build it well.
+              If the fit is right, the next step is a scoped quote.
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-text-soft/88 sm:text-lg">
-              Elevated Tech Solutions is built for clients who want modern design,
-              clear communication, and practical support without the usual web agency
-              friction.
+              Share the basics and the project can be scoped around what your site
+              actually needs.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <ButtonLink href="/contact" size="lg">
                 Get a Quote
               </ButtonLink>
               <ButtonLink href="/services" variant="secondary" size="lg">
-                Explore Services
+                Review Services
               </ButtonLink>
             </div>
           </CardShell>

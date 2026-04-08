@@ -1,43 +1,51 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import { CardShell } from "@/components/shared/card-shell";
 import { Brand } from "@/components/shared/brand";
 import { Container } from "@/components/shared/container";
 import { ButtonLink } from "@/components/ui/button-link";
 import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
 
 const legalRouteHrefs = new Set<string>(siteConfig.legalNavigation.map((item) => item.href));
 
 export function SiteFooter() {
+  const pathname = usePathname();
+  const showAboutLink = pathname !== "/about";
+
   return (
     <footer className="relative pt-10 sm:pt-12">
       <Container size="wide" className="pb-12 sm:pb-14">
-        <CardShell className="mb-10 px-7 py-9 sm:px-10 sm:py-11">
+        <CardShell className="mb-10 px-7 py-7 sm:px-10 sm:py-8">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(50,200,255,0.08),transparent_30%)]" />
-          <div className="relative grid gap-10 lg:grid-cols-[minmax(0,1.1fr)_auto] lg:items-end">
-            <div className="space-y-5">
+          <div
+            className={cn(
+              "relative grid gap-6",
+              showAboutLink && "lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center"
+            )}
+          >
+            <div className="space-y-4">
               <p className="font-display text-xs font-medium uppercase tracking-[0.34em] text-cyan-200/72">
                 Elevated Tech Solutions
               </p>
-              <h2 className="max-w-3xl text-balance font-display text-3xl font-semibold tracking-tight text-white sm:text-4xl lg:text-[3.05rem]">
-                Modern websites with clearer structure, stronger presentation, and practical support.
-              </h2>
-              <p className="max-w-2xl text-base leading-8 text-text-soft/86">
-                Elevated Tech Solutions is built for small businesses, nonprofits,
-                restaurants, and local organizations that want a more polished digital
-                presence without unnecessary agency overhead.
-              </p>
-              <p className="text-sm uppercase tracking-[0.22em] text-slate-400">
-                Founder-led, mobile-first, and built for practical long-term support.
+              <p className="max-w-3xl text-base leading-8 text-text-soft/84 sm:text-lg">
+                Founder-led websites and support for smaller organizations that
+                need a clearer online presence.
               </p>
             </div>
 
-            <div className="flex flex-wrap gap-3 lg:justify-end">
-              <ButtonLink href="/contact">{siteConfig.cta.label}</ButtonLink>
-              <ButtonLink href="/services" variant="secondary">
-                Explore Services
+            {showAboutLink ? (
+              <ButtonLink
+                href="/about"
+                size="sm"
+                className="justify-self-start lg:justify-self-end"
+              >
+                Learn More
               </ButtonLink>
-            </div>
+            ) : null}
           </div>
         </CardShell>
 
@@ -45,8 +53,8 @@ export function SiteFooter() {
           <div className="space-y-4">
             <Brand />
             <p className="max-w-2xl text-sm leading-7 text-text-soft/76">
-              Affordable, modern websites for small businesses, nonprofits, and
-              restaurants. Built for a premium feel without unnecessary complexity.
+              Direct communication, defined scope, and support after launch for
+              small businesses, nonprofits, and restaurants.
             </p>
           </div>
 
@@ -85,7 +93,7 @@ export function SiteFooter() {
               ))}
             </nav>
             <p className="pt-2 text-xs uppercase tracking-[0.24em] text-slate-500">
-              Copyright {new Date().getFullYear()} Elevated Tech Solutions
+              Copyright {new Date().getFullYear()} Elevated Tech Solutions LLC
             </p>
           </div>
         </div>

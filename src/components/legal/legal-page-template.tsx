@@ -64,7 +64,7 @@ export function LegalPageTemplate({
               </div>
 
               <div className="mt-8 inline-flex rounded-full border border-white/8 bg-white/[0.04] px-4 py-2 text-xs uppercase tracking-[0.24em] text-slate-300">
-                Last updated {lastUpdated}
+                Effective date / last updated {lastUpdated}
               </div>
             </div>
           </CardShell>

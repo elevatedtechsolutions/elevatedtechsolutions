@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 
 import { CardShell } from "@/components/shared/card-shell";
 import { CustomSelect } from "@/components/ui/custom-select";
@@ -15,7 +15,7 @@ const labelClassName = "premium-label";
 const checkboxClassName =
   "peer sr-only";
 const submitButtonClassName =
-  "inline-flex items-center justify-center rounded-full border border-cyan-200/24 bg-[linear-gradient(180deg,rgba(149,241,255,0.98),rgba(63,201,255,0.92))] px-6 py-3 text-sm font-semibold tracking-[0.02em] text-slate-950 shadow-[0_16px_34px_rgba(50,200,255,0.14)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-[0_24px_48px_rgba(50,200,255,0.22)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:translate-y-0 disabled:opacity-70 disabled:shadow-[0_12px_24px_rgba(50,200,255,0.08)]";
+  "inline-flex items-center justify-center rounded-full border border-cyan-200/24 bg-[linear-gradient(180deg,rgba(149,241,255,0.98),rgba(63,201,255,0.92))] px-6 py-3 text-sm font-semibold tracking-[0.02em] text-slate-950 shadow-[0_16px_34px_rgba(50,200,255,0.14)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_24px_48px_rgba(50,200,255,0.22)] active:translate-y-0 active:scale-[0.988] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:translate-y-0 disabled:scale-100 disabled:opacity-70 disabled:shadow-[0_12px_24px_rgba(50,200,255,0.08)]";
 const successMessageClassName =
   "rounded-[1.35rem] border border-cyan-300/18 bg-[linear-gradient(180deg,rgba(34,211,238,0.14),rgba(34,211,238,0.08))] px-4 py-4 text-sm leading-7 text-cyan-50/92 shadow-[0_18px_40px_rgba(12,74,110,0.12)]";
 const errorMessageClassName =
@@ -32,18 +32,43 @@ export function QuoteForm() {
   const [projectType, setProjectType] = useState("");
   const [budgetRange, setBudgetRange] = useState("");
   const [timeline, setTimeline] = useState("");
+  const [contactConsent, setContactConsent] = useState(false);
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [submissionState, setSubmissionState] = useState<SubmissionState>({
     status: "idle",
     message: null
   });
   const isOtherProjectType = projectType === "other";
   const isSubmitting = submissionState.status === "submitting";
+  const projectTypeInvalid = hasAttemptedSubmit && !projectType;
+  const budgetRangeInvalid = hasAttemptedSubmit && !budgetRange;
+  const timelineInvalid = hasAttemptedSubmit && !timeline;
+  const consentInvalid = hasAttemptedSubmit && !contactConsent;
+  const formStatusMessage = useMemo(() => {
+    if (isSubmitting) {
+      return "Submitting your inquiry securely now.";
+    }
+
+    return (
+      <>
+        Prefer to introduce the project directly instead? Email{" "}
+        <a
+          href="mailto:info@elevatedtechsolutionsllc.com"
+          className="font-medium text-white underline decoration-white/30 underline-offset-4 transition-colors hover:text-cyan-200"
+        >
+          info@elevatedtechsolutionsllc.com
+        </a>
+        .
+      </>
+    );
+  }, [isSubmitting]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const form = event.currentTarget;
     const formData = new FormData(form);
+    setHasAttemptedSubmit(true);
 
     setSubmissionState({ status: "submitting", message: null });
 
@@ -71,6 +96,8 @@ export function QuoteForm() {
       setProjectType("");
       setBudgetRange("");
       setTimeline("");
+      setContactConsent(false);
+      setHasAttemptedSubmit(false);
       setSubmissionState({
         status: "success",
         message:
@@ -116,7 +143,7 @@ export function QuoteForm() {
         method="post"
         aria-labelledby="quote-form-heading"
         aria-describedby="quote-form-description quote-form-note"
-        className="mt-6 grid gap-6"
+        className="mt-6 grid gap-6 sm:gap-7"
         onSubmit={handleSubmit}
       >
         <div className="grid gap-5 rounded-[1.55rem] border border-white/8 bg-white/[0.02] p-5 sm:p-6">
@@ -205,43 +232,52 @@ export function QuoteForm() {
             </p>
           </div>
 
-          <div className="grid gap-5 md:grid-cols-3">
-            <CustomSelect
-              id="project-type"
-              name="projectType"
-              label="Project Type"
-              placeholder="Select project type"
-              options={projectTypeOptions}
-              value={projectType}
-              onChange={setProjectType}
-              showSelectedDescription
-              required
-              disabled={isSubmitting}
-            />
+          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <div>
+              <CustomSelect
+                id="project-type"
+                name="projectType"
+                label="Project Type"
+                placeholder="Select project type"
+                options={projectTypeOptions}
+                value={projectType}
+                onChange={setProjectType}
+                showSelectedDescription
+                required
+                disabled={isSubmitting}
+                invalid={projectTypeInvalid}
+              />
+            </div>
 
-            <CustomSelect
-              id="budget-range"
-              name="budgetRange"
-              label="Budget Range"
-              placeholder="Select budget range"
-              options={budgetRangeOptions}
-              value={budgetRange}
-              onChange={setBudgetRange}
-              required
-              disabled={isSubmitting}
-            />
+            <div>
+              <CustomSelect
+                id="budget-range"
+                name="budgetRange"
+                label="Budget Range"
+                placeholder="Select budget range"
+                options={budgetRangeOptions}
+                value={budgetRange}
+                onChange={setBudgetRange}
+                required
+                disabled={isSubmitting}
+                invalid={budgetRangeInvalid}
+              />
+            </div>
 
-            <CustomSelect
-              id="timeline"
-              name="timeline"
-              label="Timeline"
-              placeholder="Select timeline"
-              options={timelineOptions}
-              value={timeline}
-              onChange={setTimeline}
-              required
-              disabled={isSubmitting}
-            />
+            <div className="md:col-span-2 xl:col-span-1">
+              <CustomSelect
+                id="timeline"
+                name="timeline"
+                label="Timeline"
+                placeholder="Select timeline"
+                options={timelineOptions}
+                value={timeline}
+                onChange={setTimeline}
+                required
+                disabled={isSubmitting}
+                invalid={timelineInvalid}
+              />
+            </div>
           </div>
         </div>
 
@@ -285,7 +321,7 @@ export function QuoteForm() {
               required
               minLength={20}
               disabled={isSubmitting}
-              className={`${inputClassName} min-h-[10rem] resize-y`}
+              className={`${inputClassName} min-h-[11rem] resize-y py-3.5 leading-7`}
               placeholder="Tell us about your business, what you need the site to do, any existing website situation, and anything else that would help shape the quote."
             />
           </div>
@@ -304,7 +340,9 @@ export function QuoteForm() {
             </p>
           ) : null}
 
-          <label className="group flex gap-4 rounded-[1.45rem] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.02))] px-4 py-4 text-sm leading-6 text-text-soft/84 transition-colors duration-300 hover:border-white/12 hover:bg-white/[0.045]">
+          <label
+            className={`group flex items-start gap-4 rounded-[1.45rem] border bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.02))] px-4 py-4 text-sm leading-6 text-text-soft/84 transition-colors duration-300 hover:border-white/12 hover:bg-white/[0.045] ${consentInvalid ? "border-rose-300/24 bg-[linear-gradient(180deg,rgba(244,63,94,0.08),rgba(255,255,255,0.02))]" : "border-white/8"}`}
+          >
             <input
               id="contact-consent"
               name="contactConsent"
@@ -313,8 +351,10 @@ export function QuoteForm() {
               required
               disabled={isSubmitting}
               className={checkboxClassName}
+              checked={contactConsent}
+              onChange={(event) => setContactConsent(event.currentTarget.checked)}
             />
-            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-[0.3rem] border border-white/18 bg-[linear-gradient(180deg,rgba(15,23,42,0.88),rgba(2,6,23,0.92))] text-slate-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_18px_rgba(2,6,23,0.16)] transition-all duration-300 peer-focus-visible:ring-2 peer-focus-visible:ring-cyan-300/45 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background peer-disabled:opacity-60 peer-checked:border-cyan-200/55 peer-checked:bg-[linear-gradient(180deg,rgba(149,241,255,1),rgba(63,201,255,0.94))] peer-checked:text-slate-950 peer-checked:shadow-[0_0_0_1px_rgba(149,241,255,0.16),0_10px_22px_rgba(34,211,238,0.22)]">
+            <span className={`mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-[0.3rem] border bg-[linear-gradient(180deg,rgba(15,23,42,0.88),rgba(2,6,23,0.92))] text-slate-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_18px_rgba(2,6,23,0.16)] transition-all duration-300 peer-focus-visible:ring-2 peer-focus-visible:ring-cyan-300/45 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background peer-disabled:opacity-60 peer-checked:border-cyan-200/55 peer-checked:bg-[linear-gradient(180deg,rgba(149,241,255,1),rgba(63,201,255,0.94))] peer-checked:text-slate-950 peer-checked:shadow-[0_0_0_1px_rgba(149,241,255,0.16),0_10px_22px_rgba(34,211,238,0.22)] ${consentInvalid ? "border-rose-300/26" : "border-white/18"}`}>
               <svg
                 aria-hidden="true"
                 viewBox="0 0 16 16"
@@ -342,20 +382,7 @@ export function QuoteForm() {
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p id="quote-form-note" className="max-w-2xl text-sm leading-7 text-text-soft/82">
-              {isSubmitting ? (
-                "Submitting your inquiry securely now."
-              ) : (
-                <>
-                  Prefer to introduce the project directly instead? Email{" "}
-                  <a
-                    href="mailto:info@elevatedtechsolutionsllc.com"
-                    className="font-medium text-white underline decoration-white/30 underline-offset-4 transition-colors hover:text-cyan-200"
-                  >
-                    info@elevatedtechsolutionsllc.com
-                  </a>
-                  .
-                </>
-              )}
+              {formStatusMessage}
             </p>
 
             <button type="submit" disabled={isSubmitting} className={submitButtonClassName}>

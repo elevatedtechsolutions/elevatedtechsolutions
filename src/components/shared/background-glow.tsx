@@ -5,10 +5,13 @@ export function BackgroundGlow() {
       <div className="motion-safe-aurora-delayed absolute inset-x-0 top-[-20rem] h-[40rem] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.11),transparent_38%)]" />
       <div className="motion-safe-drift-slow absolute left-[-9rem] top-44 h-[22rem] w-[22rem] rounded-full bg-blue-600/10 blur-3xl" />
       <div className="motion-safe-drift-slower absolute bottom-[-14rem] right-[-10rem] h-[28rem] w-[28rem] rounded-full bg-cyan-400/9 blur-3xl" />
-      <div className="absolute left-1/2 top-[24rem] h-[24rem] w-[56rem] -translate-x-1/2 bg-[radial-gradient(circle,rgba(50,200,255,0.05),transparent_70%)] blur-3xl" />
-      <div className="absolute inset-x-0 top-0 h-[24rem] grid-fade opacity-[0.16]" />
-      <div className="absolute inset-0 opacity-[0.18] micro-grid" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,20,0)_0%,rgba(4,8,20,0.06)_16%,rgba(4,8,20,0.48)_62%,rgba(4,8,20,0.96)_100%)]" />
+      <div className="motion-safe-atmosphere-band absolute left-1/2 top-[24rem] h-[24rem] w-[56rem] -translate-x-1/2 bg-[radial-gradient(circle,rgba(50,200,255,0.05),transparent_70%)] blur-3xl" />
+      <div className="motion-safe-atmosphere-band-delayed absolute left-1/2 top-[54rem] h-[22rem] w-[52rem] -translate-x-1/2 bg-[radial-gradient(circle,rgba(37,99,235,0.05),transparent_72%)] blur-3xl" />
+      <div className="motion-safe-atmosphere-band absolute left-1/2 bottom-[12rem] h-[20rem] w-[48rem] -translate-x-1/2 bg-[radial-gradient(circle,rgba(34,211,238,0.045),transparent_72%)] blur-3xl" />
+      <div className="absolute inset-x-0 top-0 h-[24rem] grid-fade opacity-[0.14]" />
+      <div className="absolute inset-0 opacity-[0.14] micro-grid" />
+      <div className="motion-safe-atmosphere-sheen absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.014),transparent_14%,transparent_64%,rgba(255,255,255,0.012)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,8,20,0)_0%,rgba(4,8,20,0.05)_16%,rgba(4,8,20,0.44)_62%,rgba(4,8,20,0.96)_100%)]" />
     </div>
   );
 }

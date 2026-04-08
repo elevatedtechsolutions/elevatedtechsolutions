@@ -36,7 +36,7 @@ export function PageIntro({
       containerSize="wide"
       containerClassName="grid gap-8 xl:grid-cols-[minmax(0,1.22fr)_22rem] xl:items-start"
     >
-      <Reveal>
+      <Reveal preset="cta">
         <CardShell tone="hero" className="p-8 sm:p-10">
           <div className="absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/55 to-transparent" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(50,200,255,0.08),transparent_38%)]" />
@@ -79,7 +79,7 @@ export function PageIntro({
         </CardShell>
       </Reveal>
 
-      <Reveal delay={120}>
+      <Reveal delay={120} preset="card">
         <CardShell className="p-8">
           <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/45 to-transparent" />
           <p className="font-display text-xs font-medium uppercase tracking-[0.32em] text-cyan-200/70">

@@ -34,6 +34,8 @@ export function ServiceOfferGallery({
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [viewerIndex, setViewerIndex] = useState<number | null>(null);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const touchStartXRef = useRef<number | null>(null);
   const touchMovedRef = useRef(false);
 
@@ -45,6 +47,26 @@ export function ServiceOfferGallery({
   const viewerSlide = viewerIndex === null ? null : slides[viewerIndex];
   const viewerArrowIconClassName =
     viewerSlide?.arrowIconTone === "dark" ? "text-black" : "text-white";
+  const formattedViewerIndex =
+    viewerIndex === null ? null : String(viewerIndex + 1).padStart(2, "0");
+
+  const getRelativeOffset = (index: number) => {
+    let offset = index - activeIndex;
+
+    if (offset > slides.length / 2) {
+      offset -= slides.length;
+    }
+
+    if (offset < -slides.length / 2) {
+      offset += slides.length;
+    }
+
+    return offset;
+  };
+
+  const goToSlide = (index: number) => {
+    setActiveIndex(index);
+  };
 
   const moveToSlide = (direction: 1 | -1) => {
     setActiveIndex((current) => (current + direction + slides.length) % slides.length);
@@ -71,10 +93,25 @@ export function ServiceOfferGallery({
   const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
     touchStartXRef.current = event.touches[0]?.clientX ?? null;
     touchMovedRef.current = false;
+    setDragOffset(0);
+    setIsDragging(true);
+  };
+
+  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
+    if (touchStartXRef.current === null) {
+      return;
+    }
+
+    const currentX = event.touches[0]?.clientX ?? touchStartXRef.current;
+    const deltaX = currentX - touchStartXRef.current;
+    touchMovedRef.current = Math.abs(deltaX) >= 10;
+    setDragOffset(Math.max(-84, Math.min(84, deltaX)));
   };
 
   const handleTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
     if (touchStartXRef.current === null) {
+      setIsDragging(false);
+      setDragOffset(0);
       return;
     }
 
@@ -82,12 +119,21 @@ export function ServiceOfferGallery({
     const deltaX = touchEndX - touchStartXRef.current;
     touchStartXRef.current = null;
     touchMovedRef.current = Math.abs(deltaX) >= 12;
+    setIsDragging(false);
+    setDragOffset(0);
 
-    if (Math.abs(deltaX) < 44) {
+    if (Math.abs(deltaX) < 52) {
       return;
     }
 
     moveToSlide(deltaX < 0 ? 1 : -1);
+  };
+
+  const handleTouchCancel = () => {
+    touchStartXRef.current = null;
+    touchMovedRef.current = false;
+    setIsDragging(false);
+    setDragOffset(0);
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -141,30 +187,41 @@ export function ServiceOfferGallery({
   return (
     <>
       <div
-        className="relative overflow-hidden rounded-[1.7rem] border border-white/8 bg-[linear-gradient(180deg,rgba(11,17,30,0.96),rgba(6,11,21,0.96))] shadow-[0_30px_90px_rgba(2,12,27,0.28)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+        className="group/gallery relative overflow-hidden rounded-[1.7rem] border border-white/8 bg-[linear-gradient(180deg,rgba(11,17,30,0.96),rgba(6,11,21,0.96))] shadow-[0_30px_90px_rgba(2,12,27,0.28)] transition-[transform,border-color,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-white/12 hover:shadow-[0_34px_100px_rgba(2,12,27,0.34)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         tabIndex={0}
         onKeyDown={handleKeyDown}
       >
         <div className="pointer-events-none absolute inset-x-0 top-0 h-24 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_72%)]" />
 
         <div
-          className="relative min-h-[21rem] touch-pan-y select-none sm:min-h-[24rem] lg:min-h-[26rem]"
+          className="relative min-h-[22rem] touch-pan-y select-none sm:min-h-[25rem] lg:min-h-[27.5rem]"
           onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchCancel}
         >
           {slides.map((slide, index) => {
             const isActive = index === activeIndex;
+            const relativeOffset = getRelativeOffset(index);
+            const horizontalOffset =
+              relativeOffset === 0
+                ? dragOffset
+                : (relativeOffset < 0 ? -36 : 36) + dragOffset * 0.18;
 
             if (slide.src) {
               return (
                 <div
                   key={`${serviceTitle}-${slide.title}`}
                   className={cn(
-                    "absolute inset-0 transition-[opacity,transform,filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    "absolute inset-0 transition-[opacity,transform,filter] ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    isDragging ? "duration-75" : "duration-700",
                     isActive
-                      ? "translate-y-0 scale-100 opacity-100 blur-0"
-                      : "pointer-events-none translate-y-1 scale-[1.015] opacity-0 blur-[2px]"
+                      ? "opacity-100 blur-0"
+                      : "pointer-events-none opacity-0 blur-[3px]"
                   )}
+                  style={{
+                    transform: `translate3d(${horizontalOffset}px, ${isActive ? 0 : 4}px, 0) scale(${isActive ? 1 : 0.985})`
+                  }}
                 >
                   <div className="absolute inset-0">
                     <Image
@@ -173,19 +230,26 @@ export function ServiceOfferGallery({
                       alt=""
                       aria-hidden="true"
                       sizes="(min-width: 1280px) 34vw, (min-width: 768px) 72vw, 100vw"
-                      className="scale-[1.03] object-cover object-top opacity-[0.18] blur-2xl saturate-[0.85]"
+                      className="scale-[1.03] object-cover object-top opacity-[0.16] blur-2xl saturate-[0.85]"
                     />
                   </div>
 
-                  <div className="absolute inset-0 flex items-center justify-center p-2 sm:p-3 lg:p-4">
-                    <div className="relative h-full w-full">
+                  <div className="absolute inset-0 flex items-center justify-center p-2.5 sm:p-3.5 lg:p-4">
+                    <div
+                      className={cn(
+                        "relative h-full w-full overflow-hidden rounded-[1.42rem] bg-[linear-gradient(180deg,rgba(10,16,29,0.88),rgba(6,11,21,0.94))] shadow-[0_26px_74px_rgba(2,12,27,0.36)] transition-[box-shadow,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                        isActive
+                          ? "shadow-[0_28px_78px_rgba(2,12,27,0.4)]"
+                          : ""
+                      )}
+                    >
                       <Image
                         fill
                         src={slide.src}
                         alt={slide.alt ?? `${serviceTitle} sample page screenshot`}
                         sizes="(min-width: 1280px) 34vw, (min-width: 768px) 72vw, 100vw"
                         className={cn(
-                          "object-contain object-center drop-shadow-[0_26px_64px_rgba(2,12,27,0.36)]",
+                          "object-contain object-top px-1.5 pb-1.5 pt-2 drop-shadow-[0_26px_64px_rgba(2,12,27,0.28)] sm:px-2 sm:pb-2 sm:pt-2.5",
                           slide.imageClassName
                         )}
                       />
@@ -202,11 +266,15 @@ export function ServiceOfferGallery({
                 alt={slide.alt}
                 motion="hover"
                 className={cn(
-                  "absolute inset-0 rounded-none border-0 transition-[opacity,transform,filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                  "absolute inset-0 rounded-none border-0 transition-[opacity,transform,filter] ease-[cubic-bezier(0.22,1,0.36,1)]",
+                  isDragging ? "duration-75" : "duration-700",
                   isActive
-                    ? "scale-100 opacity-100 blur-0"
-                    : "pointer-events-none scale-[1.015] opacity-0 blur-[2px]"
+                    ? "opacity-100 blur-0"
+                    : "pointer-events-none opacity-0 blur-[3px]"
                 )}
+                style={{
+                  transform: `translate3d(${horizontalOffset}px, 0, 0) scale(${isActive ? 1 : 0.988})`
+                }}
                 imageClassName={cn("object-cover object-center", slide.imageClassName)}
                 overlayClassName="bg-[linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.18)_36%,rgba(2,6,23,0.62)_100%)]"
               />
@@ -236,11 +304,11 @@ export function ServiceOfferGallery({
                   event.stopPropagation();
                   moveToSlide(-1);
                 }}
-                className="absolute left-4 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/24 bg-white/12 text-white shadow-[0_18px_40px_rgba(2,12,27,0.34)] backdrop-blur-lg transition-all duration-300 hover:border-white/40 hover:bg-white/18 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:left-5"
+                className="group/arrow absolute left-4 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.06))] text-white shadow-[0_18px_40px_rgba(2,12,27,0.34)] backdrop-blur-xl transition-all duration-300 hover:scale-[1.04] hover:border-cyan-200/34 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0.08))] hover:shadow-[0_24px_52px_rgba(2,12,27,0.4)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:left-5"
               >
                 <span
                   className={cn(
-                    "mb-[1px] ml-[3px] block h-3.5 w-3.5 rotate-45 border-b-2 border-l-2 border-current",
+                    "mb-[1px] ml-[3px] block h-3 w-3 rotate-45 border-b-2 border-l-2 border-current transition-transform duration-300 group-hover/arrow:-translate-x-0.5",
                     arrowIconClassName
                   )}
                 />
@@ -253,11 +321,11 @@ export function ServiceOfferGallery({
                   event.stopPropagation();
                   moveToSlide(1);
                 }}
-                className="absolute right-4 top-1/2 z-20 inline-flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-white/24 bg-white/12 text-white shadow-[0_18px_40px_rgba(2,12,27,0.34)] backdrop-blur-lg transition-all duration-300 hover:border-white/40 hover:bg-white/18 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:right-5"
+                className="group/arrow absolute right-4 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-[linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.06))] text-white shadow-[0_18px_40px_rgba(2,12,27,0.34)] backdrop-blur-xl transition-all duration-300 hover:scale-[1.04] hover:border-cyan-200/34 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0.08))] hover:shadow-[0_24px_52px_rgba(2,12,27,0.4)] active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background sm:right-5"
               >
                 <span
                   className={cn(
-                    "mb-[1px] mr-[3px] block h-3.5 w-3.5 rotate-45 border-r-2 border-t-2 border-current",
+                    "mb-[1px] mr-[3px] block h-3 w-3 rotate-45 border-r-2 border-t-2 border-current transition-transform duration-300 group-hover/arrow:translate-x-0.5",
                     arrowIconClassName
                   )}
                 />
@@ -266,21 +334,49 @@ export function ServiceOfferGallery({
           ) : null}
         </div>
 
-        <div className="relative z-10 border-t border-white/8 bg-[linear-gradient(180deg,rgba(10,16,30,0.9),rgba(7,12,23,0.96))] px-4 py-4 sm:px-5">
-          <div className="space-y-2">
-            <div className="flex items-center justify-between gap-3">
-              <p className="text-[0.7rem] uppercase tracking-[0.26em] text-cyan-200/72">
-                {activeSlide.title}
-              </p>
-              {slides.length > 1 ? (
-                <p className="text-[0.68rem] uppercase tracking-[0.22em] text-slate-400">
-                  {formattedIndex} / {formattedCount}
-                </p>
-              ) : null}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 z-20 h-24 bg-[linear-gradient(180deg,rgba(2,6,23,0),rgba(2,6,23,0.42)_60%,rgba(2,6,23,0.62))]" />
+
+        {slides.length > 1 ? (
+          <>
+            <div className="pointer-events-none absolute right-4 top-4 z-20 inline-flex items-center gap-2 rounded-full border border-white/10 bg-[rgba(7,12,23,0.56)] px-3 py-1.5 text-[0.66rem] uppercase tracking-[0.22em] text-slate-300 shadow-[0_18px_40px_rgba(2,12,27,0.26)] backdrop-blur-xl sm:right-5 sm:top-5">
+              <span className="text-white">{formattedIndex}</span>
+              <span className="h-1 w-1 rounded-full bg-cyan-200/68" />
+              <span>{formattedCount}</span>
             </div>
-            <p className="text-sm leading-6 text-text-soft/80">{activeSlide.caption}</p>
-          </div>
-        </div>
+
+            <div className="absolute bottom-4 left-4 z-20 flex flex-wrap items-center gap-2 sm:bottom-5 sm:left-5">
+              {slides.map((slide, index) => {
+                const isCurrent = index === activeIndex;
+
+                return (
+                  <button
+                    key={`${serviceTitle}-${slide.title}-indicator`}
+                    type="button"
+                    aria-label={`Go to ${slide.title} slide`}
+                    aria-pressed={isCurrent}
+                    aria-current={isCurrent ? "true" : undefined}
+                    onClick={() => goToSlide(index)}
+                    className={cn(
+                      "group/indicator relative h-2.5 w-8 overflow-hidden rounded-full border transition-[border-color,background-color,box-shadow,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                      isCurrent
+                        ? "border-cyan-200/42 bg-cyan-200/8 shadow-[0_0_0_1px_rgba(125,211,252,0.08)]"
+                        : "border-white/18 bg-[rgba(7,12,23,0.34)] hover:border-white/28 hover:bg-[rgba(255,255,255,0.06)]"
+                    )}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={cn(
+                        "absolute inset-[2px] rounded-full bg-[linear-gradient(90deg,rgba(103,232,249,0.96),rgba(56,189,248,0.88))] shadow-[0_0_14px_rgba(56,189,248,0.22)] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                        isCurrent ? "scale-x-100" : "scale-x-0"
+                      )}
+                      style={{ transformOrigin: "left center" }}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+          </>
+        ) : null}
       </div>
       {viewerSlide && typeof document !== "undefined"
         ? createPortal(
@@ -296,27 +392,18 @@ export function ServiceOfferGallery({
                   className="relative flex w-full max-w-[88rem] flex-col overflow-hidden rounded-[1.8rem] border border-white/10 bg-[linear-gradient(180deg,rgba(11,17,30,0.98),rgba(5,10,19,0.98))] shadow-[0_36px_120px_rgba(0,0,0,0.45)]"
                   onClick={(event) => event.stopPropagation()}
                 >
-                  <div className="flex items-center justify-between gap-4 border-b border-white/8 px-5 py-4 sm:px-6">
-                    <div className="min-w-0">
-                      <p className="text-[0.7rem] uppercase tracking-[0.28em] text-cyan-200/72">
-                        {serviceTitle}
-                      </p>
-                      <p className="mt-2 truncate text-sm text-text-soft/84 sm:text-base">
-                        {viewerSlide.title}
-                      </p>
-                    </div>
-
+                  <div className="flex items-center justify-end gap-3 border-b border-white/8 px-5 py-3.5 sm:px-6">
                     <div className="flex items-center gap-3">
                       {slides.length > 1 ? (
                         <p className="text-[0.68rem] uppercase tracking-[0.24em] text-slate-400">
-                          {String(viewerIndex + 1).padStart(2, "0")} / {formattedCount}
+                          {formattedViewerIndex} / {formattedCount}
                         </p>
                       ) : null}
                       <button
                         type="button"
                         aria-label={`Close ${serviceTitle} image viewer`}
                         onClick={closeViewer}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/14 bg-white/8 text-white transition-colors hover:bg-white/14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
+                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/14 bg-white/8 text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white/14 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
                       >
                         <span className="relative block h-4 w-4">
                           <span className="absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 rotate-45 bg-current" />
@@ -326,7 +413,7 @@ export function ServiceOfferGallery({
                     </div>
                   </div>
 
-                  <div className="relative min-h-[70vh] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_60%)]">
+                  <div className="relative min-h-[78vh] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_60%)]">
                     {viewerSlide.src ? (
                       <div className="absolute inset-0">
                         <Image
@@ -340,8 +427,8 @@ export function ServiceOfferGallery({
                       </div>
                     ) : null}
 
-                    <div className="relative flex min-h-[70vh] items-center justify-center px-4 py-6 sm:px-6 sm:py-8">
-                      <div className="relative h-[62vh] w-full max-w-[76rem] sm:h-[68vh]">
+                    <div className="relative flex min-h-[78vh] items-center justify-center px-4 py-5 sm:px-6 sm:py-6">
+                      <div className="relative h-[69vh] w-full max-w-[78rem] sm:h-[74vh]">
                         {viewerSlide.src ? (
                           <Image
                             fill
@@ -372,7 +459,7 @@ export function ServiceOfferGallery({
                           type="button"
                           aria-label={`Previous ${serviceTitle} image in viewer`}
                           onClick={() => moveViewerSlide(-1)}
-                          className="absolute left-4 top-1/2 z-20 inline-flex h-[3.25rem] w-[3.25rem] -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-white/10 text-white shadow-[0_18px_42px_rgba(0,0,0,0.34)] backdrop-blur-lg transition-all duration-300 hover:bg-white/16 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 sm:left-6"
+                          className="absolute left-4 top-1/2 z-20 inline-flex h-[3.25rem] w-[3.25rem] -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-white/10 text-white shadow-[0_18px_42px_rgba(0,0,0,0.34)] backdrop-blur-lg transition-all duration-300 hover:scale-[1.04] hover:bg-white/16 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 sm:left-6"
                         >
                           <span
                             className={cn(
@@ -386,7 +473,7 @@ export function ServiceOfferGallery({
                           type="button"
                           aria-label={`Next ${serviceTitle} image in viewer`}
                           onClick={() => moveViewerSlide(1)}
-                          className="absolute right-4 top-1/2 z-20 inline-flex h-[3.25rem] w-[3.25rem] -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-white/10 text-white shadow-[0_18px_42px_rgba(0,0,0,0.34)] backdrop-blur-lg transition-all duration-300 hover:bg-white/16 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 sm:right-6"
+                          className="absolute right-4 top-1/2 z-20 inline-flex h-[3.25rem] w-[3.25rem] -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-white/10 text-white shadow-[0_18px_42px_rgba(0,0,0,0.34)] backdrop-blur-lg transition-all duration-300 hover:scale-[1.04] hover:bg-white/16 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 sm:right-6"
                         >
                           <span
                             className={cn(
@@ -399,9 +486,6 @@ export function ServiceOfferGallery({
                     ) : null}
                   </div>
 
-                  <div className="border-t border-white/8 px-5 py-4 sm:px-6">
-                    <p className="text-sm leading-7 text-text-soft/84">{viewerSlide.caption}</p>
-                  </div>
                 </div>
               </div>
             </div>,

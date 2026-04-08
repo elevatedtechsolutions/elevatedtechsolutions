@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 export const metadata = createPageMetadata({
   title: "Process",
   description:
-    "See how Elevated Tech Solutions guides clients through discovery, scope, build, launch, and ongoing support with a clear, low-friction website process.",
+    "See how Elevated Tech Solutions guides clients from discovery and scope through build, launch, and ongoing support.",
   path: "/process",
   keywords: ["website project process", "discovery and quote", "website launch support"]
 });
@@ -21,44 +21,46 @@ const processSteps = [
     step: "1",
     title: "Discovery",
     description:
-      "Start with the business goals, the audience, and the pages that actually matter. This is where the project gets pointed in the right direction before design or development begins."
+      "Start with the business goals, the audience, and the pages that matter most so the project is pointed in the right direction from the start."
   },
   {
     step: "2",
     title: "Scope & Quote",
     description:
-      "After the goals are clearer, the next step is a defined project scope and a quote based on the actual need. That keeps the work organized and helps avoid vague expectations later."
+      "Turn the project into a defined scope and quote based on the actual need, so expectations stay concrete before work begins."
   },
   {
     step: "3",
     title: "Build & Review",
     description:
-      "Once the scope is approved, the site is designed and built with modern structure, responsive behavior, and clear user flow. Review happens as the work takes shape, not as an afterthought."
+      "Once the scope is approved, the site is designed and built around the agreed pages, with review built into the process as the work takes shape."
   },
   {
     step: "4",
     title: "Launch",
     description:
-      "The site is prepared for deployment, checked for launch readiness, and pushed live with the key details in place so the business can start using it confidently."
+      "Prepare the site for deployment, check the important details, and push it live once it is ready."
   },
   {
     step: "5",
     title: "Ongoing Support",
     description:
-      "After launch, support can continue through updates, light edits, guidance, and maintenance so the site stays current and useful."
+      "After launch, support can continue through updates, light edits, guidance, and maintenance."
   }
 ] as const;
 
 const clientMaterials = [
   {
     title: "Brand basics",
+    description: "Use what is already available. Nothing needs to be polished perfectly before the project starts.",
     items: [
       "Logo or brand assets, if available",
       "Business photos or other images"
     ]
   },
   {
-    title: "Website content",
+    title: "Core content",
+    description: "The main page copy and essential business details help the site stay accurate from the first draft.",
     items: [
       "Text or written content for key pages",
       "Menu, hours, address, and contact details when relevant"
@@ -66,6 +68,7 @@ const clientMaterials = [
   },
   {
     title: "Review feedback",
+    description: "Timely feedback matters more than long, overworked notes. Clear approvals keep the build moving.",
     items: [
       "Feedback during the review process",
       "Approval on important updates so the build keeps moving"
@@ -77,18 +80,24 @@ const timelineCards = [
   {
     title: "Smaller brochure-style projects",
     description:
-      "Often move faster when content and approvals are ready early."
+      "Usually move faster when content and approvals are ready early."
   },
   {
     title: "Restaurant sites",
     description:
-      "Typically depend on how quickly menus, photos, hours, and brand details are gathered."
+      "Often depend on how quickly menus, photos, hours, and brand details are gathered."
   },
   {
     title: "Support and revision timing",
     description:
       "Post-launch updates are shaped by the scope of the request and the current support plan."
   }
+] as const;
+
+const timelineSignals = [
+  "Project size and page count",
+  "How quickly content is ready",
+  "How steadily approvals come in"
 ] as const;
 
 export default function ProcessPage() {
@@ -99,20 +108,18 @@ export default function ProcessPage() {
         containerSize="wide"
         containerClassName="grid gap-12 xl:grid-cols-[minmax(0,0.98fr)_1.02fr] xl:items-center"
       >
-        <Reveal className="space-y-8">
+        <Reveal className="space-y-8" preset="heading">
           <div className="inline-flex rounded-full border border-cyan-300/18 bg-cyan-400/8 px-4 py-2 text-[0.7rem] font-medium uppercase tracking-[0.32em] text-cyan-100/82">
             How the process works
           </div>
 
           <div className="space-y-6">
             <h1 className="max-w-4xl text-balance font-display text-5xl font-semibold tracking-tight text-white sm:text-6xl lg:text-[4.35rem]">
-              A process built to feel clear, organized, and easy to work through.
+              A straightforward website process from quote to launch.
             </h1>
             <p className="max-w-3xl text-lg leading-8 text-text-soft/90 sm:text-xl">
-              Elevated Tech Solutions is structured to reduce friction for clients.
-              The process is meant to feel professional and calm, with clear next
-              steps, realistic expectations, and support from the first conversation
-              through launch and beyond.
+              This page is here to show how the work stays organized, what clients
+              need to provide, and how the project moves forward without unnecessary friction.
             </p>
           </div>
 
@@ -131,7 +138,7 @@ export default function ProcessPage() {
                 Structured from the start
               </p>
               <p className="text-sm leading-6 text-text-soft/82">
-                Scope is defined before the build begins so expectations stay clear.
+                Scope is defined early so the build starts with clear expectations.
               </p>
             </div>
             <div className="space-y-2">
@@ -139,14 +146,14 @@ export default function ProcessPage() {
                 Built for busy teams
               </p>
               <p className="text-sm leading-6 text-text-soft/82">
-                The workflow is designed to stay manageable for owners, staff, and
+                The workflow is built to stay manageable for owners, staff, and
                 organizations with limited bandwidth.
               </p>
             </div>
           </div>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal delay={120} preset="panel">
           <ProcessHeroVisual />
         </Reveal>
       </SectionShell>
@@ -156,42 +163,46 @@ export default function ProcessPage() {
         containerSize="wide"
         containerClassName="grid gap-12 xl:grid-cols-[0.76fr_1.24fr] xl:items-start"
       >
-        <Reveal>
+        <Reveal preset="heading">
           <SectionHeading
             eyebrow="Step By Step"
-            title="The project flow is straightforward from the first conversation to launch."
-            description="Each step is there to create clarity, reduce surprises, and make the process easier for clients who may not have time for a complicated web project."
+            title="What to expect from first conversation to launch."
+            description="This is the detailed breakdown of how the project moves from initial conversation to a live site."
           />
 
           <p className="mt-8 max-w-2xl text-base leading-8 text-text-soft/86">
-            The overall goal is simple: discovery first, scope before build,
-            thoughtful review along the way, and support available after launch.
+            Each step is there to keep the project moving with fewer surprises and clearer decisions.
           </p>
         </Reveal>
 
-        <Reveal delay={120}>
-          <ol className="relative list-none p-0">
+        <Reveal delay={120} preset="list">
+          <ol className="relative list-none space-y-5 p-0">
             {processSteps.map((item, index) => (
-              <li key={item.step} className="relative list-none pl-14 pb-10 last:pb-0">
+              <li key={item.step} className="relative list-none pl-14">
                 {index !== processSteps.length - 1 ? (
                   <div
                     aria-hidden="true"
-                    className="absolute left-[0.9375rem] top-[2.4rem] bottom-0 w-px bg-gradient-to-b from-cyan-300/40 via-white/12 to-transparent"
+                    className="absolute left-[1rem] top-[3.7rem] bottom-[-1.4rem] w-px bg-gradient-to-b from-cyan-300/44 via-white/12 to-transparent"
                   />
                 ) : null}
-                <div className="absolute left-0 top-0 flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/22 bg-[linear-gradient(180deg,rgba(34,211,238,0.14),rgba(34,211,238,0.08))] text-sm font-semibold text-cyan-100 shadow-[0_0_0_6px_rgb(var(--background))]">
+                <div className="absolute left-0 top-5 flex h-8 w-8 items-center justify-center rounded-full border border-cyan-300/24 bg-[linear-gradient(180deg,rgba(34,211,238,0.16),rgba(34,211,238,0.08))] text-sm font-semibold text-cyan-100 shadow-[0_0_0_6px_rgb(var(--background))]">
                   {item.step}
                 </div>
-                <article className="border-t border-white/8 pt-4">
-                  <div className="grid gap-4 lg:grid-cols-[0.34fr_0.66fr] lg:items-start">
-                    <h3 className="font-display text-2xl font-semibold text-white sm:text-[2rem]">
-                      {item.title}
-                    </h3>
+                <CardShell tone="quiet" className="p-5 sm:p-6">
+                  <article className="grid gap-5 lg:grid-cols-[0.32fr_0.68fr] lg:items-start">
+                    <div className="space-y-3">
+                      <p className="text-[0.68rem] uppercase tracking-[0.26em] text-cyan-200/70">
+                        Step {item.step}
+                      </p>
+                      <h3 className="font-display text-2xl font-semibold text-white sm:text-[2rem]">
+                        {item.title}
+                      </h3>
+                    </div>
                     <p className="max-w-2xl text-base leading-8 text-text-soft/84">
                       {item.description}
                     </p>
-                  </div>
-                </article>
+                  </article>
+                </CardShell>
               </li>
             ))}
           </ol>
@@ -203,48 +214,55 @@ export default function ProcessPage() {
         containerSize="wide"
         containerClassName="grid gap-12 xl:grid-cols-[0.92fr_1.08fr] xl:items-center"
       >
-        <Reveal>
+        <Reveal preset="panel">
           <EditorialImage
             image="workspaceDesk"
             className="min-h-[22rem] rounded-[1.9rem] sm:min-h-[25rem] lg:min-h-[30rem]"
             imageClassName="object-cover object-center"
-            overlayClassName="bg-[linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.2)_36%,rgba(2,6,23,0.76)_100%)]"
+            overlayClassName="bg-[linear-gradient(180deg,rgba(2,6,23,0.08),rgba(2,6,23,0.16)_36%,rgba(2,6,23,0.68)_100%)]"
           >
             <div className="flex h-full items-end p-6 sm:p-7">
-              <div className="max-w-sm rounded-[1.4rem] border border-white/12 bg-slate-950/44 px-5 py-4 backdrop-blur-md">
+              <div className="max-w-sm rounded-[1.4rem] border border-white/12 bg-slate-950/38 px-5 py-4 backdrop-blur-md">
                 <p className="text-[0.65rem] uppercase tracking-[0.28em] text-cyan-100/76">
                   What clients provide
                 </p>
                 <p className="mt-3 text-sm leading-6 text-slate-100/88">
-                  Clients do not need everything perfect before starting, but a few
-                  essentials help the project move faster and stay accurate.
+                  A few essentials help the project stay accurate and easier to move through.
                 </p>
               </div>
             </div>
           </EditorialImage>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal delay={120} preset="heading">
           <SectionHeading
             eyebrow="What Clients Provide"
-            title="A few essentials help the project move smoothly."
-            description="The goal is not to create busywork. It is simply to make sure the important details are available so the site can represent the business clearly and accurately."
+            title="A few basics keep the project moving."
+            description="Most projects only need brand basics, core content, and timely feedback. The goal is not extra homework, just the essentials."
           />
 
-          <div className="mt-10 grid gap-8 border-t border-white/8 pt-6 md:grid-cols-3">
+          <div className="mt-10 grid gap-6 border-t border-white/8 pt-6 md:grid-cols-3">
             {clientMaterials.map((group) => (
-              <article key={group.title} className="space-y-4">
-                <h3 className="font-display text-2xl font-semibold text-white">
-                  {group.title}
-                </h3>
-                <ul className="list-none space-y-3 p-0">
+              <CardShell key={group.title} tone="quiet" className="p-5 sm:p-6">
+                <article className="space-y-4">
+                  <div className="space-y-3">
+                    <h3 className="font-display text-2xl font-semibold text-white">
+                      {group.title}
+                    </h3>
+                    <p className="text-sm leading-7 text-text-soft/82">
+                      {group.description}
+                    </p>
+                  </div>
+                <ul className="list-none space-y-3 border-t border-white/8 pt-4 p-0">
                   {group.items.map((item) => (
-                    <li key={item} className="list-none text-sm leading-7 text-text-soft/84">
-                      {item}
+                    <li key={item} className="flex items-start gap-3 text-sm leading-7 text-text-soft/84">
+                      <span className="mt-[0.7rem] h-1.5 w-1.5 shrink-0 rounded-full bg-cyan-200/70" />
+                      <span>{item}</span>
                     </li>
                   ))}
                 </ul>
-              </article>
+                </article>
+              </CardShell>
             ))}
           </div>
         </Reveal>
@@ -255,31 +273,37 @@ export default function ProcessPage() {
         containerSize="wide"
         containerClassName="grid gap-12 xl:grid-cols-[0.8fr_1.2fr] xl:items-start"
       >
-        <Reveal>
+        <Reveal preset="heading">
           <SectionHeading
             eyebrow="Timeline Expectations"
-            title="Timelines depend on project size, content readiness, and feedback speed."
-            description="Some websites move quickly, while others take longer because of approvals, content gathering, or added functionality. The key is that the timeline is tied to the actual scope instead of being guessed at loosely."
+            title="Timeline depends mostly on scope, content, and approvals."
+            description="Some projects move quickly, while others take longer because content or feedback arrives in stages. The timeline follows the real scope."
           />
 
-          <p className="mt-6 max-w-2xl text-base leading-8 text-text-soft/86">
-            Elevated Tech Solutions aims to keep projects moving with realistic
-            planning, but launch timing works best when content and feedback arrive
-            at a steady pace.
-          </p>
+          <div className="mt-8 grid gap-3 border-t border-white/8 pt-5">
+            {timelineSignals.map((signal) => (
+              <div key={signal} className="flex items-center gap-3 text-sm leading-7 text-text-soft/84">
+                <span className="h-2 w-2 rounded-full bg-cyan-200/72" />
+                <span>{signal}</span>
+              </div>
+            ))}
+          </div>
         </Reveal>
 
-        <Reveal delay={120}>
+        <Reveal delay={120} preset="card">
           <CardShell tone="quiet" className="p-7 sm:p-8">
-            <div className="space-y-6">
+            <div className="grid gap-4 md:grid-cols-3">
               {timelineCards.map((item, index) => (
                 <article
                   key={item.title}
                   className={cn("border-t border-white/8 pt-5", index === 0 && "border-transparent pt-0")}
                 >
-                  <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
-                    {item.title}
+                  <p className="text-[0.68rem] uppercase tracking-[0.26em] text-cyan-200/72">
+                    Timing note 0{index + 1}
                   </p>
+                  <h3 className="mt-3 font-display text-xl font-semibold text-white">
+                    {item.title}
+                  </h3>
                   <p className="mt-4 text-sm leading-7 text-text-soft/84">
                     {item.description}
                   </p>
@@ -291,17 +315,16 @@ export default function ProcessPage() {
       </SectionShell>
 
       <SectionShell className="pb-24 sm:pb-28" containerSize="wide">
-        <Reveal>
+        <Reveal preset="cta">
           <CardShell tone="hero" className="px-8 py-10 text-center sm:px-10 sm:py-12">
             <p className="text-xs uppercase tracking-[0.34em] text-cyan-200/72">
               Ready to begin
             </p>
             <h2 className="mx-auto mt-5 max-w-4xl text-balance font-display text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-              If you want a website project that feels structured and manageable, let&apos;s start with the right scope.
+              If the process sounds like a fit, the next step is a scoped quote.
             </h2>
             <p className="mx-auto mt-6 max-w-3xl text-base leading-8 text-text-soft/88 sm:text-lg">
-              The process is built to make things easier for smaller organizations,
-              not harder.
+              A strong project starts with clear goals, defined scope, and realistic expectations.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <ButtonLink href="/contact" size="lg">

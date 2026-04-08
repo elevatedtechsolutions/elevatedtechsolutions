@@ -12,7 +12,7 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 
 const desktopNavLinkClassName =
-  "relative rounded-full px-3.5 py-2.5 text-sm font-medium tracking-[0.01em] text-slate-300 transition-all duration-300 hover:bg-white/[0.035] hover:text-white after:absolute after:inset-x-3.5 after:bottom-[0.45rem] after:h-px after:origin-center after:scale-x-0 after:bg-gradient-to-r after:from-cyan-300/0 after:via-cyan-200/72 after:to-cyan-300/0 after:transition-transform after:duration-300 hover:after:scale-x-100";
+  "relative rounded-full px-3.5 py-2.5 text-sm font-medium tracking-[0.01em] text-slate-300 transition-all duration-400 ease-[cubic-bezier(0.22,1,0.36,1)] before:absolute before:inset-0 before:rounded-full before:bg-[radial-gradient(circle_at_top,rgba(50,200,255,0.12),transparent_65%)] before:opacity-0 before:transition-opacity before:duration-400 before:ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-[1px] hover:bg-white/[0.04] hover:text-white hover:before:opacity-100 after:absolute after:inset-x-3.5 after:bottom-[0.45rem] after:h-px after:origin-center after:scale-x-0 after:bg-gradient-to-r after:from-cyan-300/0 after:via-cyan-200/72 after:to-cyan-300/0 after:transition-transform after:duration-400 after:ease-[cubic-bezier(0.22,1,0.36,1)] hover:after:scale-x-100";
 
 function isActiveRoute(pathname: string, href: string) {
   if (href === "/") {
@@ -26,9 +26,23 @@ export function SiteHeader() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const updateScrolledState = () => {
+      setIsScrolled(window.scrollY > 18);
+    };
+
+    updateScrolledState();
+    window.addEventListener("scroll", updateScrolledState, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", updateScrolledState);
+    };
   }, []);
 
   useEffect(() => {
@@ -174,86 +188,110 @@ export function SiteHeader() {
     );
 
   return (
-    <header className="sticky top-0 z-50 px-3 pt-4 sm:px-4 sm:pt-5">
-      <Container size="wide">
-        <div className="site-outline relative flex items-center gap-4 rounded-[1.8rem] bg-background/56 px-4 py-4 backdrop-blur-3xl sm:px-6">
-          <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/34 to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-10 w-40 bg-[radial-gradient(circle_at_center,rgba(50,200,255,0.06),transparent_72%)]" />
-          <Brand />
-
-          <nav
-            aria-label="Primary navigation"
-            className="ml-6 hidden flex-1 items-center justify-center gap-1.5 xl:flex"
-          >
-            {siteConfig.primaryNavigation.map((item) => {
-              const isActive = isActiveRoute(pathname, item.href);
-
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  aria-current={isActive ? "page" : undefined}
-                  className={cn(
-                    desktopNavLinkClassName,
-                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-                    isActive &&
-                      "bg-white/[0.045] text-white after:scale-x-100"
-                  )}
-                >
-                  {item.label}
-                </Link>
-              );
-            })}
-          </nav>
-
-          <div className="ml-auto hidden items-center gap-3 xl:flex">
-            <ButtonLink href={siteConfig.cta.href} size="sm">
-              {siteConfig.cta.label}
-            </ButtonLink>
-          </div>
-
-          <div className="ml-auto flex items-center gap-2 xl:hidden">
-            <ButtonLink
-              href={siteConfig.cta.href}
-              variant="secondary"
-              size="sm"
-              className="hidden sm:inline-flex"
-            >
-              Quote
-            </ButtonLink>
-
-            <button
-              type="button"
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isOpen}
-              aria-controls="mobile-navigation"
-              onClick={() => setIsOpen((current) => !current)}
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] text-white transition-all duration-300 hover:border-cyan-300/30 hover:bg-white/[0.08] hover:shadow-[0_0_24px_rgba(50,200,255,0.1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              <span className="relative h-4 w-5">
-                <span
-                  className={cn(
-                    "absolute left-0 top-0 h-px w-5 bg-current transition-all duration-300",
-                    isOpen && "top-[7px] rotate-45"
-                  )}
-                />
-                <span
-                  className={cn(
-                    "absolute left-0 top-[7px] h-px w-5 bg-current transition-all duration-300",
-                    isOpen && "opacity-0"
-                  )}
-                />
-                <span
-                  className={cn(
-                    "absolute left-0 top-[14px] h-px w-5 bg-current transition-all duration-300",
-                    isOpen && "top-[7px] -rotate-45"
-                  )}
-                />
-              </span>
-            </button>
-          </div>
+    <header className="relative z-50 h-[6.35rem] sm:h-[6.9rem]">
+      <div
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 px-3 transition-[padding] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-4",
+          isScrolled ? "pt-2.5 sm:pt-3.5" : "pt-4 sm:pt-5"
+        )}
+      >
+        <div
+          aria-hidden="true"
+          className={cn(
+            "pointer-events-none absolute inset-x-0 top-0 h-24 transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
+            isScrolled ? "opacity-100" : "opacity-0"
+          )}
+        >
+          <div className="absolute inset-x-0 top-0 h-full bg-[linear-gradient(180deg,rgba(2,6,23,0.62),rgba(2,6,23,0))]" />
         </div>
-      </Container>
+
+        <Container size="wide">
+          <div
+            className={cn(
+              "site-outline relative flex items-center gap-4 rounded-[1.8rem] px-4 backdrop-blur-3xl transition-[transform,border-color,background-color,box-shadow,padding] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:px-6",
+              isScrolled
+                ? "translate-y-0 py-3.5 border-white/12 bg-[rgba(4,8,20,0.82)] shadow-[0_26px_70px_rgba(2,12,27,0.34),0_0_0_1px_rgba(255,255,255,0.04),inset_0_1px_0_rgba(255,255,255,0.06)]"
+                : "py-4 bg-background/56"
+            )}
+          >
+            <div className="pointer-events-none absolute inset-x-12 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/34 to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-10 w-40 bg-[radial-gradient(circle_at_center,rgba(50,200,255,0.06),transparent_72%)]" />
+            <Brand />
+
+            <nav
+              aria-label="Primary navigation"
+              className="ml-6 hidden flex-1 items-center justify-center gap-1.5 xl:flex"
+            >
+              {siteConfig.primaryNavigation.map((item) => {
+                const isActive = isActiveRoute(pathname, item.href);
+
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className={cn(
+                      desktopNavLinkClassName,
+                      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+                      isActive &&
+                        "bg-white/[0.055] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_10px_24px_rgba(2,12,27,0.14)] after:scale-x-100 before:opacity-100"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            <div className="ml-auto hidden items-center gap-3 xl:flex">
+              <ButtonLink href={siteConfig.cta.href} size="sm">
+                {siteConfig.cta.label}
+              </ButtonLink>
+            </div>
+
+            <div className="ml-auto flex items-center gap-2 xl:hidden">
+              <ButtonLink
+                href={siteConfig.cta.href}
+                variant="secondary"
+                size="sm"
+                className="hidden sm:inline-flex"
+              >
+                Quote
+              </ButtonLink>
+
+              <button
+                type="button"
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isOpen}
+                aria-controls="mobile-navigation"
+                onClick={() => setIsOpen((current) => !current)}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-white/[0.08] hover:shadow-[0_0_24px_rgba(50,200,255,0.1)] active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              >
+                <span className="relative h-4 w-5">
+                  <span
+                    className={cn(
+                      "absolute left-0 top-0 h-px w-5 bg-current transition-all duration-300",
+                      isOpen && "top-[7px] rotate-45"
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "absolute left-0 top-[7px] h-px w-5 bg-current transition-all duration-300",
+                      isOpen && "opacity-0"
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "absolute left-0 top-[14px] h-px w-5 bg-current transition-all duration-300",
+                      isOpen && "top-[7px] -rotate-45"
+                    )}
+                  />
+                </span>
+              </button>
+            </div>
+          </div>
+        </Container>
+      </div>
       {mobileNavigationOverlay}
     </header>
   );

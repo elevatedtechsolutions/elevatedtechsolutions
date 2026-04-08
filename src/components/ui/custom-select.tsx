@@ -24,6 +24,7 @@ type CustomSelectProps = {
   required?: boolean;
   disabled?: boolean;
   showSelectedDescription?: boolean;
+  invalid?: boolean;
 };
 
 export function CustomSelect({
@@ -36,7 +37,8 @@ export function CustomSelect({
   onChange,
   required = false,
   disabled = false,
-  showSelectedDescription = false
+  showSelectedDescription = false,
+  invalid = false
 }: CustomSelectProps) {
   const generatedId = useId();
   const labelId = `${id}-${generatedId}-label`;
@@ -204,13 +206,15 @@ export function CustomSelect({
           isOpen && activeIndex >= 0 ? `${listboxId}-option-${activeIndex}` : undefined
         }
         aria-required={required}
+        aria-invalid={invalid || undefined}
         className={cn(
-          "group/select premium-input flex w-full justify-between gap-4 pr-4 text-left",
+          "group/select premium-input flex w-full justify-between gap-4 pl-4 pr-3.5 text-left",
           shouldShowSelectedDescription
             ? "min-h-[4.75rem] items-start py-3.5"
             : "min-h-[3.25rem] items-center",
           !selectedOption && "text-slate-500",
           disabled && "cursor-not-allowed opacity-60",
+          invalid && "border-rose-300/34 bg-[rgba(76,5,25,0.16)]",
           isOpen &&
             "border-cyan-300/35 bg-[linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.03))] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_0_0_1px_rgba(50,200,255,0.12),0_16px_34px_rgba(2,12,27,0.3)]"
         )}
@@ -240,8 +244,9 @@ export function CustomSelect({
         <span
           aria-hidden="true"
           className={cn(
-            "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] text-cyan-100/82 transition-all duration-300",
+            "flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] text-cyan-100/82 transition-all duration-300 group-hover/select:border-white/14 group-hover/select:bg-white/[0.06]",
             shouldShowSelectedDescription && "mt-0.5",
+            invalid && "border-rose-300/24 text-rose-100/80",
             isOpen && "border-cyan-300/20 bg-cyan-400/10 text-cyan-50"
           )}
         >

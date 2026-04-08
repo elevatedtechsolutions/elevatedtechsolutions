@@ -6,45 +6,45 @@ import { createPageMetadata } from "@/lib/metadata";
 export const metadata: Metadata = createPageMetadata({
   title: "Site Policy",
   description:
-    "Supporting site policy covering cookies, third-party tools, and general website operation.",
+    "Website operations notice covering site operation, external tools, and visitor expectations.",
   path: "/site-policy",
   keywords: ["site policy", "cookie policy"]
 });
 
 const sections = [
   {
-    title: "Purpose of This Page",
+    title: "Role of This Page",
     paragraphs: [
-      "This Site Policy provides a simpler supporting reference for visitors who want a quick overview of how the Elevated Tech Solutions website is intended to operate.",
-      "It works alongside the Privacy Policy and Terms of Service and is meant to summarize basic expectations around cookies, third-party tools, and general site use."
+      "This page is a limited website operations notice. Its purpose is to explain, at a high level, how the Elevated Tech Solutions LLC website is maintained and what visitors should expect when using it.",
+      "It works alongside the Privacy Policy and Terms of Service. Privacy disclosures belong on the Privacy Policy page, and website-use terms belong on the Terms of Service page."
     ]
   },
   {
-    title: "Cookies and Similar Technologies",
+    title: "Site Operation and Availability",
     paragraphs: [
-      "This website is intended to remain lightweight and may use minimal cookies by default. If essential tools, analytics, embedded media, form providers, scheduling tools, or performance services are added later, those tools may rely on cookies or similar technologies to function properly.",
-      "Visitors who prefer stricter control over cookies can generally manage those settings through their browser or device preferences."
+      "Elevated Tech Solutions LLC aims to keep this website available, usable, and reasonably up to date, but uninterrupted availability cannot be guaranteed at all times.",
+      "Content, examples, page structure, and service descriptions may be updated as the business, website, or operating practices change."
     ]
   },
   {
-    title: "Third-Party Tools and Links",
+    title: "Cookies, Technical Tools, and External Services",
     paragraphs: [
-      "The website may include or later add links to third-party platforms, external services, or embedded tools. Those services operate under their own policies and terms, and Elevated Tech Solutions is not responsible for the content or policies of third-party websites.",
-      "If outside tools are added to support contact, hosting, analytics, maps, scheduling, or similar features, this page and related legal pages should be updated to reflect those changes."
+      "This website is intended to remain lightweight and is not built around broad advertising or behavior-based tracking. Basic technical tools, hosting services, security measures, and form-related services may still use limited cookies or similar technologies when necessary for site operation.",
+      "The website may also link to third-party services or websites. Those services operate under their own terms and privacy practices, and Elevated Tech Solutions is not responsible for their content or policies."
     ]
   },
   {
-    title: "Accessibility, Performance, and Content",
+    title: "Accessibility and Content Standards",
     paragraphs: [
-      "Elevated Tech Solutions aims to build and maintain a website that feels clear, usable, and performant across common modern devices. Reasonable efforts may be made over time to improve accessibility, readability, and overall user experience.",
-      "Website content is for general informational purposes and may change as services, policies, project examples, and business details evolve."
+      "Elevated Tech Solutions LLC aims to present a website that is clear, readable, and usable across common modern devices. Accessibility and usability improvements may be made over time as the site evolves.",
+      "Examples, screenshots, and supporting visuals are provided to explain service direction and website quality. They should not be read as guarantees of identical results for every project."
     ]
   },
   {
-    title: "Policy Updates",
+    title: "Updates to This Policy",
     paragraphs: [
-      "This Site Policy may be revised as the website matures and new tools or features are introduced. When updates are made, the revised version should be posted on this page with an updated effective date.",
-      "For fuller details about privacy or terms, visitors should review the Privacy Policy and Terms of Service pages."
+      "This Site Policy may be updated when the website changes, when new tools are added, or when operating practices are adjusted.",
+      "The current version will be posted on this page with the latest revision date."
     ]
   }
 ] as const;
@@ -53,12 +53,12 @@ export default function SitePolicyPage() {
   return (
     <LegalPageTemplate
       eyebrow="Site Policy"
-      title="A simple supporting policy for how this website is intended to operate."
-      description="This page provides a clean, high-level summary of cookie use, third-party tools, site expectations, and general website administration."
-      lastUpdated="March 24, 2026"
+      title="A narrow website operations notice for this site."
+      description="This page covers general website operation, technical tools, external links, accessibility intent, and site updates. It is meant to complement the Privacy Policy and Terms of Service, not replace them."
+      lastUpdated="April 6, 2026"
       currentHref="/site-policy"
-      noteTitle="Supporting Policy"
-      noteText="This page is meant to complement the Privacy Policy and Terms of Service with a simpler overview. It is starter legal/supporting copy and should be reviewed if the website adds new tools, analytics, or embedded services."
+      noteTitle="Limited Purpose"
+      noteText="Use this page for high-level website operations and site-notice information. For privacy and data-handling details, read the Privacy Policy. For website-use terms, read the Terms of Service. Questions about this page or site operation can be directed to info@elevatedtechsolutionsllc.com."
       sections={sections}
     />
   );
