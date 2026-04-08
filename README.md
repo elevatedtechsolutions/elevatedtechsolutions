@@ -44,4 +44,4 @@ public/
 - Metadata defaults, `sitemap`, `robots`, `manifest`, and an Open Graph image route are already wired up.
 - Static brand and content images belong in `public/images/...`.
 - The scaffold is intentionally lightweight: no auth, database, CMS, Stripe, or admin portal.
-- Netlify can deploy this as a standard Next.js site with the existing setup.
+
