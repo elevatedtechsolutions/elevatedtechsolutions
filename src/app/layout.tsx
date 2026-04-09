@@ -77,6 +77,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html
       lang="en"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${manrope.variable} ${spaceGrotesk.variable}`}
     >
       <body className="bg-background font-sans text-foreground">{children}</body>

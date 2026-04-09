@@ -98,8 +98,8 @@ export default function ContactPage() {
 
       <SectionShell className="py-0" containerSize="wide">
         <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] xl:items-stretch">
-          <Reveal preset="card" className="h-full">
-            <CardShell tone="quiet" className="flex h-full flex-col p-6 sm:p-7 lg:p-8">
+          <Reveal preset="card" className="min-w-0 h-full">
+            <CardShell tone="quiet" className="flex min-w-0 h-full flex-col p-6 sm:p-7 lg:p-8">
               <SectionHeading
                 eyebrow="Before You Reach Out"
                 title="You can reach out before every detail is finalized."
@@ -114,8 +114,8 @@ export default function ContactPage() {
                         <p className="inline-flex h-8 min-w-8 items-center justify-center rounded-full border border-cyan-200/18 bg-cyan-300/8 px-2 text-[0.68rem] font-medium uppercase tracking-[0.2em] text-cyan-100/78">
                           0{index + 1}
                         </p>
-                        <div>
-                          <h3 className="font-display text-2xl font-semibold text-white">
+                        <div className="min-w-0">
+                          <h3 className="break-words font-display text-2xl font-semibold text-white">
                             {item.title}
                           </h3>
                           <p className="mt-3 text-sm leading-7 text-text-soft/84">
@@ -130,13 +130,13 @@ export default function ContactPage() {
             </CardShell>
           </Reveal>
 
-          <Reveal delay={120} preset="card" className="h-full">
-            <CardShell tone="quiet" className="flex h-full flex-col p-6 sm:p-7 lg:p-8">
-              <div className="max-w-2xl">
+          <Reveal delay={120} preset="card" className="min-w-0 h-full">
+            <CardShell tone="quiet" className="flex min-w-0 h-full flex-col p-6 sm:p-7 lg:p-8">
+              <div className="max-w-2xl min-w-0">
                 <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
                   Contact Details
                 </p>
-                <h3 className="mt-4 font-display text-3xl font-semibold text-white sm:text-[2.3rem]">
+                <h3 className="mt-4 break-words [overflow-wrap:anywhere] font-display text-3xl font-semibold text-white sm:text-[2.3rem]">
                   The practical details, kept easy to find.
                 </h3>
                 <p className="mt-4 text-base leading-8 text-text-soft/84">
@@ -144,26 +144,26 @@ export default function ContactPage() {
                 </p>
               </div>
 
-              <ul className="mt-8 grid list-none gap-4 border-t border-white/8 pt-6 p-0 md:grid-cols-2">
+              <ul className="mt-8 grid min-w-0 list-none gap-4 border-t border-white/8 p-0 pt-6 md:grid-cols-2">
                 {contactMethods.map((item, index) => (
                   <li
                     key={item.label}
-                    className={index === 0 ? "list-none md:col-span-2" : "list-none"}
+                    className={index === 0 ? "list-none min-w-0 md:col-span-2" : "list-none min-w-0"}
                   >
-                    <Reveal delay={index * 80} preset="list">
-                      <article className="h-full rounded-[1.35rem] border border-white/8 bg-white/[0.02] px-5 py-5 sm:px-6">
+                    <Reveal delay={index * 80} preset="list" className="min-w-0">
+                      <article className="h-full min-w-0 rounded-[1.35rem] border border-white/8 bg-white/[0.02] px-5 py-5 sm:px-6">
                         <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
                           {item.label}
                         </p>
                         {item.href ? (
                           <a
                             href={item.href}
-                            className="mt-3 block font-display text-2xl font-semibold text-white underline-offset-4 transition-colors hover:text-cyan-200 focus-visible:outline-none focus-visible:underline"
+                            className="mt-3 block break-words [overflow-wrap:anywhere] font-display text-2xl font-semibold text-white underline-offset-4 transition-colors hover:text-cyan-200 focus-visible:outline-none focus-visible:underline"
                           >
                             {item.value}
                           </a>
                         ) : (
-                          <h3 className="mt-3 font-display text-2xl font-semibold text-white">
+                          <h3 className="mt-3 break-words [overflow-wrap:anywhere] font-display text-2xl font-semibold text-white">
                             {item.value}
                           </h3>
                         )}

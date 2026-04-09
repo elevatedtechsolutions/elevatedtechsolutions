@@ -91,7 +91,7 @@ export function LegalPageTemplate({
                   return (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      href={item.href as Route}
                       className={cn(
                         "rounded-[1rem] border px-4 py-3 text-sm transition-all duration-300",
                         isActive

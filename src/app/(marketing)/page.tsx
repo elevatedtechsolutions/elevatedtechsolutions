@@ -1,3 +1,4 @@
+import type { Route } from "next";
 import Image from "next/image";
 
 import { createPageMetadata } from "@/lib/metadata";
@@ -8,6 +9,7 @@ import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { SectionShell } from "@/components/shared/section-shell";
 import { ButtonLink } from "@/components/ui/button-link";
+import { cn } from "@/lib/utils";
 
 export const metadata = createPageMetadata({
   title: "Elevated Tech Solutions",
@@ -265,6 +267,62 @@ export default function HomePage() {
 
         <Reveal delay={120} preset="panel">
           <HomeSignaturePanel />
+        </Reveal>
+      </SectionShell>
+
+      <SectionShell
+        className="pb-0"
+        containerSize="wide"
+        containerClassName="grid gap-10 xl:grid-cols-[0.84fr_1.16fr] xl:items-center"
+      >
+        <Reveal preset="heading">
+          <SectionHeading
+            eyebrow="Comparison Guide"
+            title="Not sure whether DIY, an agency, or a practical custom build makes more sense?"
+            description="The comparison page breaks down cost, owner time, ongoing fees, and tradeoffs so the next step is easier to judge before you request a quote."
+          />
+
+          <div className="mt-8 flex flex-wrap gap-3">
+            <ButtonLink href={"/compare" as Route} variant="secondary" size="lg">
+              Compare Your Options
+            </ButtonLink>
+          </div>
+        </Reveal>
+
+        <Reveal delay={120} preset="card">
+          <CardShell tone="quiet" className="p-6 sm:p-7">
+            <div className="grid gap-5 md:grid-cols-3">
+              {[
+                {
+                  label: "DIY",
+                  text: "Often the lowest starting cost, but the highest owner burden."
+                },
+                {
+                  label: "Agency",
+                  text: "Often the strongest fit for larger, more complex, higher-budget work."
+                },
+                {
+                  label: "ETS",
+                  text: "Often the clearest fit when you want custom results without oversized process."
+                }
+              ].map((item, index) => (
+                <article
+                  key={item.label}
+                  className={cn(
+                    "border-t border-white/8 pt-5 md:border-l md:border-t-0 md:pl-5 md:pt-0",
+                    index === 0 && "border-transparent pt-0 md:border-l-0 md:pl-0"
+                  )}
+                >
+                  <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
+                    {item.label}
+                  </p>
+                  <p className="mt-3 text-sm leading-7 text-text-soft/84">
+                    {item.text}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </CardShell>
         </Reveal>
       </SectionShell>
 

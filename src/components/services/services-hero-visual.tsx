@@ -18,13 +18,13 @@ const coreOffers = [
 
 export function ServicesHeroVisual() {
   return (
-    <div aria-hidden="true" className="relative min-h-[30rem] sm:min-h-[34rem] lg:min-h-[38rem]">
+    <div aria-hidden="true" className="relative min-h-0 sm:min-h-[34rem] lg:min-h-[38rem]">
       <div className="absolute inset-x-10 top-10 h-44 rounded-full bg-cyan-400/12 blur-3xl" />
       <div className="absolute inset-0 rounded-[2.2rem] border border-white/8 bg-[radial-gradient(circle_at_top,rgba(50,200,255,0.1),transparent_42%)]" />
       <div className="absolute inset-x-16 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/42 to-transparent" />
       <div className="absolute left-2 top-8 z-10 h-32 w-32 rounded-full bg-cyan-300/10 blur-3xl sm:left-4 lg:left-6 lg:top-10" />
 
-      <div className="absolute inset-x-6 bottom-0 top-14 z-10 lg:left-24 lg:right-0 lg:top-8">
+      <div className="absolute inset-x-6 bottom-0 top-14 z-10 hidden sm:block lg:left-24 lg:right-0 lg:top-8">
         <EditorialImage
           image="generalCollaboration"
           motion="drift"

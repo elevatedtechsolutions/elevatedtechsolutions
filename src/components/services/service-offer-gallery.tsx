@@ -230,14 +230,14 @@ export function ServiceOfferGallery({
                       alt=""
                       aria-hidden="true"
                       sizes="(min-width: 1280px) 34vw, (min-width: 768px) 72vw, 100vw"
-                      className="scale-[1.03] object-cover object-top opacity-[0.16] blur-2xl saturate-[0.85]"
+                      className="scale-[1.03] object-cover object-center opacity-[0.16] blur-2xl saturate-[0.85]"
                     />
                   </div>
 
                   <div className="absolute inset-0 flex items-center justify-center p-2.5 sm:p-3.5 lg:p-4">
                     <div
                       className={cn(
-                        "relative h-full w-full overflow-hidden rounded-[1.42rem] bg-[linear-gradient(180deg,rgba(10,16,29,0.88),rgba(6,11,21,0.94))] shadow-[0_26px_74px_rgba(2,12,27,0.36)] transition-[box-shadow,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                        "relative flex h-full w-full items-center justify-center overflow-hidden rounded-[1.42rem] bg-[linear-gradient(180deg,rgba(10,16,29,0.88),rgba(6,11,21,0.94))] p-2 shadow-[0_26px_74px_rgba(2,12,27,0.36)] transition-[box-shadow,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] sm:p-3",
                         isActive
                           ? "shadow-[0_28px_78px_rgba(2,12,27,0.4)]"
                           : ""
@@ -249,7 +249,7 @@ export function ServiceOfferGallery({
                         alt={slide.alt ?? `${serviceTitle} sample page screenshot`}
                         sizes="(min-width: 1280px) 34vw, (min-width: 768px) 72vw, 100vw"
                         className={cn(
-                          "object-contain object-top px-1.5 pb-1.5 pt-2 drop-shadow-[0_26px_64px_rgba(2,12,27,0.28)] sm:px-2 sm:pb-2 sm:pt-2.5",
+                          "max-h-full max-w-full object-contain object-center drop-shadow-[0_26px_64px_rgba(2,12,27,0.28)]",
                           slide.imageClassName
                         )}
                       />
@@ -387,33 +387,40 @@ export function ServiceOfferGallery({
               aria-label={`${serviceTitle} image viewer`}
               onClick={closeViewer}
             >
-              <div className="flex min-h-full items-center justify-center p-4 sm:p-6 lg:p-8">
+              <div className="flex min-h-full items-center justify-center p-2.5 sm:p-6 lg:p-8">
                 <div
-                  className="relative flex w-full max-w-[88rem] flex-col overflow-hidden rounded-[1.8rem] border border-white/10 bg-[linear-gradient(180deg,rgba(11,17,30,0.98),rgba(5,10,19,0.98))] shadow-[0_36px_120px_rgba(0,0,0,0.45)]"
+                  className="relative flex h-full max-h-[calc(100dvh-1rem)] w-full max-w-[88rem] flex-col overflow-hidden rounded-[1.45rem] border-x border-b border-t-0 border-white/10 bg-[linear-gradient(180deg,rgba(11,17,30,0.98),rgba(5,10,19,0.98))] shadow-[0_36px_120px_rgba(0,0,0,0.45)] sm:max-h-[calc(100dvh-3rem)] sm:rounded-[1.8rem]"
                   onClick={(event) => event.stopPropagation()}
                 >
-                  <div className="flex items-center justify-end gap-3 border-b border-white/8 px-5 py-3.5 sm:px-6">
-                    <div className="flex items-center gap-3">
+                  <div className="absolute inset-x-0 top-0 z-20 flex items-start justify-between gap-3 px-3 py-3 sm:relative sm:items-center sm:border-b sm:border-white/8 sm:px-6 sm:py-3.5">
+                    <div className="min-w-[3.25rem] rounded-full border border-white/10 bg-[rgba(7,12,23,0.56)] px-2.5 py-1 backdrop-blur-xl sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-0">
                       {slides.length > 1 && viewerIndex !== null ? (
                         <p className="text-[0.68rem] uppercase tracking-[0.24em] text-slate-400">
                           {formattedViewerIndex} / {formattedCount}
                         </p>
                       ) : null}
-                      <button
-                        type="button"
-                        aria-label={`Close ${serviceTitle} image viewer`}
-                        onClick={closeViewer}
-                        className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/14 bg-white/8 text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white/14 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
-                      >
-                        <span className="relative block h-4 w-4">
-                          <span className="absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 rotate-45 bg-current" />
-                          <span className="absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 -rotate-45 bg-current" />
-                        </span>
-                      </button>
                     </div>
+
+                    <div className="pointer-events-none absolute left-1/2 top-3 flex -translate-x-1/2 justify-center sm:hidden landscape:hidden">
+                      <div className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-[0.62rem] uppercase tracking-[0.22em] text-cyan-100/72 backdrop-blur-md">
+                        Rotate for a fuller view
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      aria-label={`Close ${serviceTitle} image viewer`}
+                      onClick={closeViewer}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/14 bg-white/8 text-white transition-all duration-300 hover:scale-[1.03] hover:bg-white/14 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60"
+                    >
+                      <span className="relative block h-4 w-4">
+                        <span className="absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 rotate-45 bg-current" />
+                        <span className="absolute left-1/2 top-0 h-full w-[2px] -translate-x-1/2 -rotate-45 bg-current" />
+                      </span>
+                    </button>
                   </div>
 
-                  <div className="relative min-h-[78vh] bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_60%)]">
+                  <div className="relative flex min-h-0 flex-1 items-center justify-center bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.08),transparent_60%)]">
                     {viewerSlide.src ? (
                       <div className="absolute inset-0">
                         <Image
@@ -427,8 +434,8 @@ export function ServiceOfferGallery({
                       </div>
                     ) : null}
 
-                    <div className="relative flex min-h-[78vh] items-center justify-center px-4 py-5 sm:px-6 sm:py-6">
-                      <div className="relative h-[69vh] w-full max-w-[78rem] sm:h-[74vh]">
+                    <div className="relative flex min-h-0 w-full flex-1 items-center justify-center px-2 py-2.5 sm:px-6 sm:py-6 lg:px-8">
+                      <div className="relative h-[min(72vh,34rem)] w-full max-w-[78rem] landscape:h-[min(82vh,24rem)] sm:h-[min(74vh,52rem)]">
                         {viewerSlide.src ? (
                           <Image
                             fill
@@ -459,7 +466,7 @@ export function ServiceOfferGallery({
                           type="button"
                           aria-label={`Previous ${serviceTitle} image in viewer`}
                           onClick={() => moveViewerSlide(-1)}
-                          className="absolute left-4 top-1/2 z-20 inline-flex h-[3.25rem] w-[3.25rem] -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-white/10 text-white shadow-[0_18px_42px_rgba(0,0,0,0.34)] backdrop-blur-lg transition-all duration-300 hover:scale-[1.04] hover:bg-white/16 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 sm:left-6"
+                          className="absolute left-2 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-white/10 text-white shadow-[0_18px_42px_rgba(0,0,0,0.34)] backdrop-blur-lg transition-all duration-300 hover:scale-[1.04] hover:bg-white/16 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 sm:left-6 sm:h-[3.25rem] sm:w-[3.25rem]"
                         >
                           <span
                             className={cn(
@@ -473,7 +480,7 @@ export function ServiceOfferGallery({
                           type="button"
                           aria-label={`Next ${serviceTitle} image in viewer`}
                           onClick={() => moveViewerSlide(1)}
-                          className="absolute right-4 top-1/2 z-20 inline-flex h-[3.25rem] w-[3.25rem] -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-white/10 text-white shadow-[0_18px_42px_rgba(0,0,0,0.34)] backdrop-blur-lg transition-all duration-300 hover:scale-[1.04] hover:bg-white/16 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 sm:right-6"
+                          className="absolute right-2 top-1/2 z-20 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/16 bg-white/10 text-white shadow-[0_18px_42px_rgba(0,0,0,0.34)] backdrop-blur-lg transition-all duration-300 hover:scale-[1.04] hover:bg-white/16 active:scale-[0.97] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 sm:right-6 sm:h-[3.25rem] sm:w-[3.25rem]"
                         >
                           <span
                             className={cn(

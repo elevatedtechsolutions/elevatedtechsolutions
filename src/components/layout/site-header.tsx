@@ -1,8 +1,9 @@
 "use client";
 
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 import { Brand } from "@/components/shared/brand";
@@ -27,6 +28,19 @@ export function SiteHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const menuTriggerRef = useRef<HTMLButtonElement | null>(null);
+  const mobileDialogRef = useRef<HTMLDivElement | null>(null);
+  const mobileCloseButtonRef = useRef<HTMLButtonElement | null>(null);
+  const shouldRestoreFocusRef = useRef(false);
+
+  const closeMobileMenu = () => {
+    shouldRestoreFocusRef.current =
+      !!mobileDialogRef.current &&
+      document.activeElement instanceof Node &&
+      mobileDialogRef.current.contains(document.activeElement);
+
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -46,7 +60,8 @@ export function SiteHeader() {
   }, []);
 
   useEffect(() => {
-    setIsOpen(false);
+    closeMobileMenu();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   useEffect(() => {
@@ -65,12 +80,19 @@ export function SiteHeader() {
 
   useEffect(() => {
     if (!isOpen) {
+      if (shouldRestoreFocusRef.current) {
+        menuTriggerRef.current?.focus();
+        shouldRestoreFocusRef.current = false;
+      }
+
       return;
     }
 
+    mobileCloseButtonRef.current?.focus();
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsOpen(false);
+        closeMobileMenu();
       }
     };
 
@@ -83,35 +105,23 @@ export function SiteHeader() {
 
   const mobileNavigationOverlay =
     isMounted &&
+    isOpen &&
     createPortal(
       <div
-        className={cn(
-          "fixed inset-0 z-[120] xl:hidden",
-          isOpen ? "pointer-events-auto" : "pointer-events-none"
-        )}
-        aria-hidden={!isOpen}
+        className="fixed inset-0 z-[120] xl:hidden"
       >
         <div
-          className={cn(
-            "absolute inset-0 bg-[rgba(2,6,23,0.82)] transition-opacity duration-300",
-            isOpen ? "opacity-100" : "opacity-0"
-          )}
+          className="absolute inset-0 bg-[rgba(2,6,23,0.82)] transition-opacity duration-300 opacity-100"
         />
         <button
           type="button"
           aria-label="Close navigation menu"
-          onClick={() => setIsOpen(false)}
-          className={cn(
-            "absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_34%),linear-gradient(180deg,rgba(3,8,20,0.1),rgba(3,8,20,0.52))] backdrop-blur-xl transition-opacity duration-300",
-            isOpen ? "opacity-100" : "opacity-0"
-          )}
+          onClick={closeMobileMenu}
+          className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(56,189,248,0.12),transparent_34%),linear-gradient(180deg,rgba(3,8,20,0.1),rgba(3,8,20,0.52))] backdrop-blur-xl transition-opacity duration-300 opacity-100"
         />
         <div
           aria-hidden="true"
-          className={cn(
-            "pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(50,200,255,0.18),transparent_56%)] transition-opacity duration-300",
-            isOpen ? "opacity-100" : "opacity-0"
-          )}
+          className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(circle_at_top,rgba(50,200,255,0.18),transparent_56%)] transition-opacity duration-300 opacity-100"
         />
 
         <div className="pointer-events-none relative flex h-full items-start justify-center overflow-y-auto px-3 pb-5 pt-[calc(env(safe-area-inset-top,0px)+0.9rem)] sm:px-5 sm:pt-[calc(env(safe-area-inset-top,0px)+1.15rem)]">
@@ -120,12 +130,8 @@ export function SiteHeader() {
             role="dialog"
             aria-modal="true"
             aria-label="Mobile navigation"
-            className={cn(
-              "pointer-events-auto relative w-full max-w-[34rem] overflow-hidden rounded-[2rem] border border-white/12 bg-[linear-gradient(180deg,rgba(11,19,35,0.995),rgba(7,12,24,0.995))] shadow-[0_40px_140px_rgba(2,12,27,0.78),0_0_0_1px_rgba(148,163,184,0.05)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)]",
-              isOpen
-                ? "translate-y-0 scale-100 opacity-100"
-                : "-translate-y-4 scale-[0.985] opacity-0"
-            )}
+            ref={mobileDialogRef}
+            className="pointer-events-auto relative w-full max-w-[34rem] overflow-hidden rounded-[2rem] border border-white/12 bg-[linear-gradient(180deg,rgba(11,19,35,0.995),rgba(7,12,24,0.995))] shadow-[0_40px_140px_rgba(2,12,27,0.78),0_0_0_1px_rgba(148,163,184,0.05)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] translate-y-0 scale-100 opacity-100"
           >
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(50,200,255,0.12),transparent_36%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.015)_22%,rgba(255,255,255,0)_100%)]" />
             <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />
@@ -141,9 +147,10 @@ export function SiteHeader() {
                 </div>
 
                 <button
+                  ref={mobileCloseButtonRef}
                   type="button"
                   aria-label="Close menu"
-                  onClick={() => setIsOpen(false)}
+                  onClick={closeMobileMenu}
                   className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.045] text-white transition-all duration-300 hover:border-cyan-300/28 hover:bg-white/[0.08] hover:shadow-[0_0_26px_rgba(50,200,255,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   <span className="relative block h-4 w-4">
@@ -160,8 +167,9 @@ export function SiteHeader() {
                   return (
                     <Link
                       key={item.href}
-                      href={item.href}
+                      href={item.href as Route}
                       aria-current={isActive ? "page" : undefined}
+                      onClick={closeMobileMenu}
                       className={cn(
                         "rounded-[1.2rem] border px-4 py-3.5 text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
                         isActive
@@ -176,7 +184,11 @@ export function SiteHeader() {
               </nav>
 
               <div className="mt-6 flex flex-wrap gap-3 border-t border-white/8 pb-[calc(env(safe-area-inset-bottom,0px)+0.25rem)] pt-5">
-                <ButtonLink href={siteConfig.cta.href} className="flex-1">
+                <ButtonLink
+                  href={siteConfig.cta.href}
+                  onClick={closeMobileMenu}
+                  className="flex-1"
+                >
                   {siteConfig.cta.label}
                 </ButtonLink>
               </div>
@@ -228,7 +240,7 @@ export function SiteHeader() {
                 return (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={item.href as Route}
                     aria-current={isActive ? "page" : undefined}
                     className={cn(
                       desktopNavLinkClassName,
@@ -260,11 +272,20 @@ export function SiteHeader() {
               </ButtonLink>
 
               <button
+                ref={menuTriggerRef}
                 type="button"
                 aria-label={isOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isOpen}
                 aria-controls="mobile-navigation"
-                onClick={() => setIsOpen((current) => !current)}
+                onClick={() => {
+                  if (isOpen) {
+                    closeMobileMenu();
+                    return;
+                  }
+
+                  shouldRestoreFocusRef.current = false;
+                  setIsOpen(true);
+                }}
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.03))] text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-300/30 hover:bg-white/[0.08] hover:shadow-[0_0_24px_rgba(50,200,255,0.1)] active:translate-y-0 active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 <span className="relative h-4 w-5">

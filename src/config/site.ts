@@ -1,16 +1,23 @@
 const fallbackUrl = "http://localhost:3000";
 
-const primaryNavigation = [
+type NavigationItem = {
+  href: string;
+  label: string;
+};
+
+const primaryNavigation: readonly NavigationItem[] = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
+  { href: "/compare", label: "Compare" },
   { href: "/process", label: "Process" },
   { href: "/about", label: "About" },
   { href: "/faq", label: "FAQ" },
   { href: "/contact", label: "Contact" }
 ] as const;
 
-const footerNavigation = [
+const footerNavigation: readonly NavigationItem[] = [
   { href: "/services", label: "Services" },
+  { href: "/compare", label: "Compare" },
   { href: "/process", label: "Process" },
   { href: "/about", label: "About" },
   { href: "/founder", label: "Founder" },
@@ -20,7 +27,7 @@ const footerNavigation = [
   { href: "/site-policy", label: "Site Policy" }
 ] as const;
 
-const legalNavigation = [
+const legalNavigation: readonly NavigationItem[] = [
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms-of-service", label: "Terms of Service" },
   { href: "/site-policy", label: "Site Policy" }

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Route } from "next";
 
 import {
   ServiceOfferGallery,
@@ -372,6 +373,13 @@ export default function ServicesPage() {
             >
               FAQ
             </Link>{" "}
+            or compare the{" "}
+            <Link
+              href={"/compare" as Route}
+              className="text-cyan-200 underline decoration-cyan-300/30 underline-offset-4 transition-colors hover:text-white focus-visible:outline-none focus-visible:text-white"
+            >
+              common website paths
+            </Link>{" "}
             before requesting a quote.
           </p>
         </Reveal>
@@ -395,6 +403,22 @@ export default function ServicesPage() {
                   </p>
                 </article>
               ))}
+            </div>
+
+            <div className="mt-8 border-t border-white/8 pt-5">
+              <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
+                Still comparing options?
+              </p>
+              <p className="mt-3 max-w-2xl text-sm leading-7 text-text-soft/84">
+                If you are weighing DIY, a larger agency, or a more practical
+                custom build, the comparison page breaks down cost, time, and
+                ongoing overhead more directly.
+              </p>
+              <div className="mt-5">
+                <ButtonLink href={"/compare" as Route} variant="secondary">
+                  Compare Your Options
+                </ButtonLink>
+              </div>
             </div>
           </CardShell>
         </Reveal>

@@ -1,5 +1,6 @@
 "use client";
 
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -68,7 +69,7 @@ export function SiteFooter() {
                 .map((item) => (
                   <Link
                     key={item.href}
-                    href={item.href}
+                    href={item.href as Route}
                     className="inline-flex rounded-full px-1 py-1.5 transition-all duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     {item.label}
@@ -85,7 +86,7 @@ export function SiteFooter() {
               {siteConfig.legalNavigation.map((item) => (
                 <Link
                   key={item.href}
-                  href={item.href}
+                  href={item.href as Route}
                   className="inline-flex rounded-full px-1 py-1.5 transition-all duration-300 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 >
                   {item.label}

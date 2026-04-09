@@ -1,3 +1,5 @@
+import type { Route } from "next";
+
 import { FaqAccordion } from "@/components/faq/faq-accordion";
 import { FaqHeroVisual } from "@/components/faq/faq-hero-visual";
 import { CardShell } from "@/components/shared/card-shell";
@@ -98,6 +100,9 @@ export default function FaqPage() {
             <ButtonLink href="/process" variant="secondary" size="lg">
               Review Process
             </ButtonLink>
+            <ButtonLink href={"/compare" as Route} variant="ghost" size="lg">
+              Compare Options
+            </ButtonLink>
           </div>
 
           <div className="grid gap-5 border-t border-white/8 pt-6 sm:grid-cols-3">
@@ -161,8 +166,8 @@ export default function FaqPage() {
               <ButtonLink href="/contact" size="lg">
                 Get a Quote
               </ButtonLink>
-              <ButtonLink href="/services" variant="secondary" size="lg">
-                Review Services
+              <ButtonLink href={"/compare" as Route} variant="secondary" size="lg">
+                Compare Your Options
               </ButtonLink>
             </div>
           </CardShell>
