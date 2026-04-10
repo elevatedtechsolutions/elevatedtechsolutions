@@ -94,7 +94,7 @@ export default function FaqPage() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <ButtonLink href="/contact" size="lg">
+            <ButtonLink href="/contact#quote-form" size="lg">
               Get a Quote
             </ButtonLink>
             <ButtonLink href="/process" variant="secondary" size="lg">
@@ -163,7 +163,7 @@ export default function FaqPage() {
               Share the basics and the project can be scoped around what you actually need.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <ButtonLink href="/contact" size="lg">
+              <ButtonLink href="/contact#quote-form" size="lg">
                 Get a Quote
               </ButtonLink>
               <ButtonLink href={"/compare" as Route} variant="secondary" size="lg">

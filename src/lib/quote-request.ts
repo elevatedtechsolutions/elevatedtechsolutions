@@ -83,6 +83,7 @@ export type QuoteRequestSubmission = {
   timeline: string;
   message: string;
   emailConsent: true;
+  newsletterConsent: boolean;
 };
 
 type QuoteRequestParseResult =
@@ -170,7 +171,8 @@ export function parseQuoteRequestSubmission(values: Record<string, unknown>): Qu
       budgetRange,
       timeline,
       message,
-      emailConsent: true
+      emailConsent: true,
+      newsletterConsent: hasConsent(values.newsletterConsent)
     }
   };
 }

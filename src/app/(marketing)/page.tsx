@@ -4,10 +4,12 @@ import Image from "next/image";
 import { createPageMetadata } from "@/lib/metadata";
 import { HomeHeroVisual } from "@/components/home/home-hero-visual";
 import { HomeSignaturePanel } from "@/components/home/home-signature-panel";
+import { NewsletterSignupForm } from "@/components/newsletter/newsletter-signup-form";
 import { CardShell } from "@/components/shared/card-shell";
 import { Reveal } from "@/components/shared/reveal";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { SectionShell } from "@/components/shared/section-shell";
+import { SocialLinks } from "@/components/shared/social-links";
 import { ButtonLink } from "@/components/ui/button-link";
 import { cn } from "@/lib/utils";
 
@@ -185,7 +187,7 @@ export default function HomePage() {
               <ButtonLink href="/services" size="lg">
                 Explore Services
               </ButtonLink>
-              <ButtonLink href="/contact" variant="secondary" size="lg">
+              <ButtonLink href="/contact#quote-form" variant="secondary" size="lg">
                 Get a Quote
               </ButtonLink>
             </div>
@@ -503,6 +505,50 @@ export default function HomePage() {
         </Reveal>
       </SectionShell>
 
+      <SectionShell className="pb-0" containerSize="wide">
+        <Reveal preset="cta">
+          <CardShell tone="quiet" className="mx-auto max-w-5xl px-7 py-7 sm:px-9 sm:py-8">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(50,200,255,0.08),transparent_36%)]" />
+            <div className="relative grid gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.92fr)] xl:items-center">
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <p className="font-display text-xs font-medium uppercase tracking-[0.32em] text-cyan-200/72">
+                    Stay Connected
+                  </p>
+                  <h2 className="text-balance font-display text-3xl font-semibold tracking-tight text-white sm:text-[2.15rem]">
+                    Follow along for launches, updates, and practical website insights.
+                  </h2>
+                  <p className="max-w-2xl text-sm leading-7 text-text-soft/84 sm:text-base">
+                    Stay connected through LinkedIn, Facebook, Instagram, or the
+                    newsletter for occasional updates from Elevated Tech Solutions.
+                  </p>
+                </div>
+
+                <div className="rounded-[1.45rem] border border-white/8 bg-white/[0.025] p-5 sm:p-6">
+                  <p className="text-xs uppercase tracking-[0.28em] text-cyan-200/72">
+                    Follow Along
+                  </p>
+                  <p className="mt-3 max-w-2xl text-sm leading-7 text-text-soft/82">
+                    Social channels are the best place to catch recent launches,
+                    business updates, and lightweight behind-the-scenes progress.
+                  </p>
+                  <SocialLinks
+                    ariaLabel="Stay connected social links"
+                    variant="pill"
+                    className="mt-5"
+                    itemClassName="w-full justify-center sm:w-auto"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <NewsletterSignupForm source="newsletter_form" />
+              </div>
+            </div>
+          </CardShell>
+        </Reveal>
+      </SectionShell>
+
       <SectionShell className="pb-24 sm:pb-28" containerSize="wide">
         <Reveal preset="cta">
           <CardShell tone="hero" className="px-8 py-10 text-center sm:px-10 sm:py-12">
@@ -517,7 +563,7 @@ export default function HomePage() {
               actually needs.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <ButtonLink href="/contact" size="lg">
+              <ButtonLink href="/contact#quote-form" size="lg">
                 Get a Quote
               </ButtonLink>
               <ButtonLink href="/services" variant="secondary" size="lg">

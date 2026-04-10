@@ -6,6 +6,12 @@ import {
   QUOTE_REQUESTS_TABLE
 } from "@/lib/neon";
 import {
+  getRequestIpAddress,
+  getUserAgent,
+  normalizeEmailAddress,
+  upsertNewsletterSubscriber
+} from "@/lib/newsletter";
+import {
   sendQuoteRequestEmails
 } from "@/lib/quote-email";
 import { parseQuoteRequestSubmission } from "@/lib/quote-request";
@@ -58,7 +64,8 @@ export async function POST(request: Request) {
     budgetRange: formData.get("budgetRange"),
     timeline: formData.get("timeline"),
     message: formData.get("message"),
-    contactConsent: formData.get("contactConsent")
+    contactConsent: formData.get("contactConsent"),
+    newsletterConsent: formData.get("newsletterConsent")
   });
 
   if (!parsed.success) {
@@ -67,6 +74,8 @@ export async function POST(request: Request) {
 
   try {
     const sql = getNeonSql();
+    const ipAddress = getRequestIpAddress(request);
+    const userAgent = getUserAgent(request);
 
     const insertedRows = (await sql`
       insert into ets.quote_requests (
@@ -80,6 +89,7 @@ export async function POST(request: Request) {
         timeline,
         message,
         email_consent,
+        newsletter_consent,
         lead_status
       )
       values (
@@ -93,6 +103,7 @@ export async function POST(request: Request) {
         ${parsed.data.timeline},
         ${parsed.data.message},
         ${parsed.data.emailConsent},
+        ${parsed.data.newsletterConsent},
         ${"new"}
       )
       returning id, created_at
@@ -120,6 +131,28 @@ export async function POST(request: Request) {
         },
         { status: 201 }
       );
+    }
+
+    if (parsed.data.newsletterConsent) {
+      const newsletterResult = await upsertNewsletterSubscriber({
+        sql,
+        data: {
+          email: parsed.data.email,
+          normalizedEmail: normalizeEmailAddress(parsed.data.email),
+          consentGiven: true,
+          source: "quote_form"
+        },
+        ipAddress,
+        userAgent
+      });
+
+      if (!newsletterResult.ok) {
+        console.error("Quote request newsletter opt-in sync failed", {
+          route: "/api/quote",
+          quoteRequestId: requestId,
+          diagnostics: newsletterResult.diagnostics
+        });
+      }
     }
 
     const emailResult = await sendQuoteRequestEmails({

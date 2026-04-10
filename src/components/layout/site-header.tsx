@@ -268,7 +268,7 @@ export function SiteHeader() {
                 size="sm"
                 className="hidden sm:inline-flex"
               >
-                Quote
+                Get a Quote
               </ButtonLink>
 
               <button

@@ -5,6 +5,13 @@ type NavigationItem = {
   label: string;
 };
 
+type SocialLink = {
+  href: string;
+  label: string;
+  ariaLabel: string;
+  platform: "linkedin" | "facebook" | "instagram";
+};
+
 const primaryNavigation: readonly NavigationItem[] = [
   { href: "/", label: "Home" },
   { href: "/services", label: "Services" },
@@ -33,6 +40,27 @@ const legalNavigation: readonly NavigationItem[] = [
   { href: "/site-policy", label: "Site Policy" }
 ] as const;
 
+const socialLinks: readonly SocialLink[] = [
+  {
+    href: "https://www.linkedin.com/company/elevated-tech-solutions-llc/about/?viewAsMember=true",
+    label: "LinkedIn",
+    ariaLabel: "Visit Elevated Tech Solutions on LinkedIn",
+    platform: "linkedin"
+  },
+  {
+    href: "https://www.facebook.com/profile.php?id=61575347932550",
+    label: "Facebook",
+    ariaLabel: "Visit Elevated Tech Solutions on Facebook",
+    platform: "facebook"
+  },
+  {
+    href: "https://www.instagram.com/elevatedtechsolutionsllc/",
+    label: "Instagram",
+    ariaLabel: "Visit Elevated Tech Solutions on Instagram",
+    platform: "instagram"
+  }
+] as const;
+
 export const siteConfig = {
   name: "Elevated Tech Solutions",
   shortName: "ETS",
@@ -43,8 +71,9 @@ export const siteConfig = {
   primaryNavigation,
   footerNavigation,
   legalNavigation,
+  socialLinks,
   cta: {
-    href: "/contact",
+    href: "/contact#quote-form",
     label: "Get a Quote"
   },
   keywords: [

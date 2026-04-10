@@ -135,7 +135,7 @@ export default function AboutPage() {
               <ButtonLink href="/services" size="lg">
                 View Services
               </ButtonLink>
-              <ButtonLink href="/contact" variant="secondary" size="lg">
+              <ButtonLink href="/contact#quote-form" variant="secondary" size="lg">
                 Start a Project
               </ButtonLink>
             </div>
@@ -334,7 +334,7 @@ export default function AboutPage() {
                 well and support it responsibly after launch.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href="/contact" size="lg">
+                <ButtonLink href="/contact#quote-form" size="lg">
                   Start a Project
                 </ButtonLink>
                 <ButtonLink href="/founder" variant="secondary" size="lg">

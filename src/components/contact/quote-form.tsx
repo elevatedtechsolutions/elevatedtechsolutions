@@ -3,6 +3,7 @@
 import { useMemo, useRef, useState } from "react";
 
 import { CardShell } from "@/components/shared/card-shell";
+import { ConsentCheckbox } from "@/components/ui/consent-checkbox";
 import { CustomSelect } from "@/components/ui/custom-select";
 import {
   budgetRangeOptions,
@@ -12,8 +13,6 @@ import {
 
 const inputClassName = "premium-input";
 const labelClassName = "premium-label";
-const checkboxClassName =
-  "peer sr-only";
 const submitButtonClassName =
   "inline-flex items-center justify-center rounded-full border border-cyan-200/24 bg-[linear-gradient(180deg,rgba(149,241,255,0.98),rgba(63,201,255,0.92))] px-6 py-3 text-sm font-semibold tracking-[0.02em] text-slate-950 shadow-[0_16px_34px_rgba(50,200,255,0.14)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:scale-[1.01] hover:shadow-[0_24px_48px_rgba(50,200,255,0.22)] active:translate-y-0 active:scale-[0.988] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:cursor-not-allowed disabled:translate-y-0 disabled:scale-100 disabled:opacity-70 disabled:shadow-[0_12px_24px_rgba(50,200,255,0.08)]";
 const successMessageClassName =
@@ -32,7 +31,8 @@ export function QuoteForm() {
   const [projectType, setProjectType] = useState("");
   const [budgetRange, setBudgetRange] = useState("");
   const [timeline, setTimeline] = useState("");
-  const [contactConsent, setContactConsent] = useState(false);
+  const [contactConsent, setContactConsent] = useState(true);
+  const [newsletterConsent, setNewsletterConsent] = useState(false);
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [submissionState, setSubmissionState] = useState<SubmissionState>({
     status: "idle",
@@ -43,7 +43,7 @@ export function QuoteForm() {
   const projectTypeInvalid = hasAttemptedSubmit && !projectType;
   const budgetRangeInvalid = hasAttemptedSubmit && !budgetRange;
   const timelineInvalid = hasAttemptedSubmit && !timeline;
-  const consentInvalid = hasAttemptedSubmit && !contactConsent;
+  const contactConsentInvalid = hasAttemptedSubmit && !contactConsent;
   const formStatusMessage = useMemo(() => {
     if (isSubmitting) {
       return "Submitting your inquiry securely now.";
@@ -96,7 +96,8 @@ export function QuoteForm() {
       setProjectType("");
       setBudgetRange("");
       setTimeline("");
-      setContactConsent(false);
+      setContactConsent(true);
+      setNewsletterConsent(false);
       setHasAttemptedSubmit(false);
       setSubmissionState({
         status: "success",
@@ -329,56 +330,46 @@ export function QuoteForm() {
 
         <div className="grid gap-5 border-t border-white/8 pt-6">
           {submissionState.status === "success" ? (
-            <p role="status" className={successMessageClassName}>
+            <p role="status" aria-live="polite" className={successMessageClassName}>
               {submissionState.message}
             </p>
           ) : null}
 
           {submissionState.status === "error" ? (
-            <p role="alert" className={errorMessageClassName}>
+            <p role="alert" aria-live="assertive" className={errorMessageClassName}>
               {submissionState.message}
             </p>
           ) : null}
 
-          <label
-            className={`group flex items-start gap-4 rounded-[1.45rem] border bg-[linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.02))] px-4 py-4 text-sm leading-6 text-text-soft/84 transition-colors duration-300 hover:border-white/12 hover:bg-white/[0.045] ${consentInvalid ? "border-rose-300/24 bg-[linear-gradient(180deg,rgba(244,63,94,0.08),rgba(255,255,255,0.02))]" : "border-white/8"}`}
-          >
-            <input
-              id="contact-consent"
-              name="contactConsent"
-              type="checkbox"
-              value="agreed"
-              required
-              disabled={isSubmitting}
-              className={checkboxClassName}
-              checked={contactConsent}
-              onChange={(event) => setContactConsent(event.currentTarget.checked)}
-            />
-            <span className={`mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-[0.3rem] border bg-[linear-gradient(180deg,rgba(15,23,42,0.88),rgba(2,6,23,0.92))] text-slate-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_8px_18px_rgba(2,6,23,0.16)] transition-all duration-300 peer-focus-visible:ring-2 peer-focus-visible:ring-cyan-300/45 peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-background peer-disabled:opacity-60 peer-checked:border-cyan-200/55 peer-checked:bg-[linear-gradient(180deg,rgba(149,241,255,1),rgba(63,201,255,0.94))] peer-checked:text-slate-950 peer-checked:shadow-[0_0_0_1px_rgba(149,241,255,0.16),0_10px_22px_rgba(34,211,238,0.22)] ${consentInvalid ? "border-rose-300/26" : "border-white/18"}`}>
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 16 16"
-                className="h-3 w-3 opacity-0 scale-75 transition-all duration-200 peer-checked:opacity-100 peer-checked:scale-100"
-                fill="none"
-              >
-                <path
-                  d="M3.5 8.25 6.5 11.25 12.5 5.25"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-            <span className="grid gap-1.5">
-              <span className="text-sm font-medium text-white">
-                Email follow-up consent
-              </span>
-              <span>
-                I agree that Elevated Tech Solutions may contact me by email about this inquiry and any relevant next steps related to the requested project.
-              </span>
-            </span>
-          </label>
+          <ConsentCheckbox
+            id="contact-consent"
+            name="contactConsent"
+            checked={contactConsent}
+            onChange={setContactConsent}
+            disabled={isSubmitting}
+            invalid={contactConsentInvalid}
+            required
+            label={
+              <>
+                Email follow-up consent{" "}
+                <span aria-hidden="true" className="text-rose-300">
+                  *
+                </span>
+                <span className="sr-only">(required)</span>
+              </>
+            }
+            description="I agree that Elevated Tech Solutions may contact me by email about this inquiry and any relevant next steps related to the requested project."
+          />
+
+          <ConsentCheckbox
+            id="newsletter-consent"
+            name="newsletterConsent"
+            checked={newsletterConsent}
+            onChange={setNewsletterConsent}
+            disabled={isSubmitting}
+            label="Newsletter / updates consent (optional)"
+            description="I would also like to receive occasional newsletters, updates, announcements, and marketing emails from Elevated Tech Solutions."
+          />
 
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p id="quote-form-note" className="max-w-2xl text-sm leading-7 text-text-soft/82">

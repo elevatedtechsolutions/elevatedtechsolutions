@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { CardShell } from "@/components/shared/card-shell";
 import { Brand } from "@/components/shared/brand";
 import { Container } from "@/components/shared/container";
+import { SocialLinks } from "@/components/shared/social-links";
 import { ButtonLink } from "@/components/ui/button-link";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
@@ -57,6 +58,12 @@ export function SiteFooter() {
               Direct communication, defined scope, and support after launch for
               small businesses, nonprofits, and restaurants.
             </p>
+            <div className="space-y-3 pt-1">
+              <p className="font-display text-xs font-medium uppercase tracking-[0.32em] text-cyan-200/70">
+                Follow
+              </p>
+              <SocialLinks ariaLabel="Footer social links" />
+            </div>
           </div>
 
           <div>

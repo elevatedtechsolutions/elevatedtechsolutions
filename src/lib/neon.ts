@@ -1,6 +1,7 @@
 import { neon } from "@neondatabase/serverless";
 
 export const QUOTE_REQUESTS_TABLE = "ets.quote_requests";
+export const NEWSLETTER_SUBSCRIBERS_TABLE = "ets.newsletter_subscribers";
 
 type PostgresErrorLike = Error & {
   code?: string;

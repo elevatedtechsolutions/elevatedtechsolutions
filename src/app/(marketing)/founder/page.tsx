@@ -139,7 +139,7 @@ export default function FounderPage() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <ButtonLink href="/contact" size="lg">
+              <ButtonLink href="/contact#quote-form" size="lg">
                 Start a Project
               </ButtonLink>
               <ButtonLink href="/about" variant="secondary" size="lg">
@@ -337,7 +337,7 @@ export default function FounderPage() {
                 presence with more direct communication throughout the project.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href="/contact" size="lg">
+                <ButtonLink href="/contact#quote-form" size="lg">
                   Start a Project
                 </ButtonLink>
                 <ButtonLink href="/services" variant="secondary" size="lg">

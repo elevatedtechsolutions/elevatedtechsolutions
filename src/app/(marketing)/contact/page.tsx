@@ -82,7 +82,7 @@ export default function ContactPage() {
           </div>
 
           <div className="flex flex-wrap gap-3">
-            <ButtonLink href="#quote-form" size="lg">
+            <ButtonLink href="/contact#quote-form" size="lg">
               Get a Quote
             </ButtonLink>
             <ButtonLink href="/services" variant="secondary" size="lg">
@@ -182,7 +182,7 @@ export default function ContactPage() {
 
       <SectionShell
         id="quote-form"
-        className="pb-0"
+        className="scroll-mt-32 pb-0 sm:scroll-mt-36"
         containerSize="wide"
         containerClassName="grid gap-8 xl:grid-cols-[0.78fr_1.22fr] xl:items-start"
       >
@@ -234,7 +234,7 @@ export default function ContactPage() {
               Use the form or send an email if that is the easier place to start.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <ButtonLink href="#quote-form" size="lg">
+              <ButtonLink href="/contact#quote-form" size="lg">
                 Back To Form
               </ButtonLink>
               <ButtonLink href="/faq" variant="secondary" size="lg">

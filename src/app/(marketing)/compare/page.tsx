@@ -444,7 +444,7 @@ export default function ComparePage() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <ButtonLink href="/contact" size="lg">
+              <ButtonLink href="/contact#quote-form" size="lg">
                 Get a Quote
               </ButtonLink>
               <ButtonLink href="/process" variant="secondary" size="lg">
@@ -1027,7 +1027,7 @@ export default function ComparePage() {
               If the practical middle path looks right, the next step is a quote conversation shaped around your actual scope, priorities, and launch needs.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <ButtonLink href="/contact" size="lg">
+              <ButtonLink href="/contact#quote-form" size="lg">
                 Get a Scoped Quote
               </ButtonLink>
               <ButtonLink href="/process" variant="secondary" size="lg">
